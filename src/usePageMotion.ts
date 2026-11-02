@@ -16,7 +16,7 @@ export function usePageMotion() {
 
   useEffect(() => {
     document.documentElement.dataset.motion = enabled ? 'on' : 'off'
-    const targets = [...document.querySelectorAll<HTMLElement>('.section-heading, .quick-links, .product-grid, .ai-app-grid, .solution-shell, .technology-copy, .observability, .resource-grid, .about-section, .cta-section .wrap')]
+    const targets = [...document.querySelectorAll<HTMLElement>('.section-heading, .quick-links, .product-grid, .ai-app-grid, .solution-shell, .resource-grid, .about-section, .cta-section .wrap')]
     if (!enabled) { targets.forEach(target => target.classList.add('is-visible')); return }
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
