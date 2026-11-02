@@ -7,6 +7,7 @@ import { usePageMotion } from './usePageMotion'
 import AnimatedNumber from './AnimatedNumber'
 import './App.css'
 import './motion.css'
+import './brand-monogram.css'
 
 type Product = { name: string; english: string; category: string; description: string; features: string[]; icon: string; tag?: string }
 const products: Product[] = [
