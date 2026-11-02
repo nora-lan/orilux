@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { ArrowRight, ArrowUpRight, Check, Play, Sparkles } from './icons'
+import CreationShowcase from './CreationShowcase'
 
 const creationModes = ['视频分镜', '图文创作', '营销文案'] as const
 const assistantTasks = ['文档处理', '数据分析', '调研总结'] as const
@@ -10,7 +11,7 @@ function WindowBar({ title }: { title: string }) {
   return <div className="ai-window-bar"><span className="ai-window-dots" aria-hidden="true"><i /><i /><i /></span><span>{title}</span><span className="ai-window-demo">DEMO</span></div>
 }
 
-function CreationPreview() {
+function CreationPreview({ motionEnabled }: { motionEnabled: boolean }) {
   const [mode, setMode] = useState<typeof creationModes[number]>('视频分镜')
   const [prompt, setPrompt] = useState('')
   const [idea, setIdea] = useState('')
@@ -20,11 +21,11 @@ function CreationPreview() {
     <WindowBar title="曜境创作 · 灵感工作台" />
     <div className="ai-creation-workspace">
       <aside className="ai-creation-sidebar" aria-label="创作类型">{creationModes.map(item => <button key={item} aria-pressed={mode === item} onClick={() => { setMode(item); setPlaying(false) }}>{item}</button>)}<div className="ai-creation-spec"><span>画面比例</span><strong>16 : 9</strong><span>灵感风格</span><strong>电影叙事</strong></div></aside>
-      <div className={`ai-creation-canvas ${playing ? 'is-previewing' : ''}`}>
+      <div className={`ai-creation-canvas ${playing && motionEnabled ? 'is-previewing' : ''}`}>
         <img src="/images/ai-creation.png" width="600" height="400" alt="蓝紫色星际城市与发光环形轨道的创意画面" loading="lazy" />
         <span className="ai-scene-label">CREATIVE EXPLORATION / 01</span>
         <div className="ai-scene-copy" aria-live="polite"><span>{idea ? '创意已加入示例' : '把想象，变成下一帧'}</span><strong>{idea || '下一站，无限可能。'}</strong></div>
-        {mode === '视频分镜' ? <button className="ai-scene-play" aria-label={playing ? '暂停分镜动效' : '播放分镜动效'} aria-pressed={playing} onClick={() => setPlaying(value => !value)}>{playing ? 'Ⅱ' : <Play size={15} />}</button> : <div className="ai-copy-result" aria-live="polite">{mode === '图文创作' ? '灵感封面 + 主题标题' : '让想象启程，让未来发生。'}</div>}
+        {mode === '视频分镜' ? <button className="ai-scene-play" disabled={!motionEnabled} aria-label={!motionEnabled ? '页面动效已关闭' : playing ? '暂停分镜动效' : '播放分镜动效'} aria-pressed={playing && motionEnabled} onClick={() => setPlaying(value => !value)}>{playing && motionEnabled ? 'Ⅱ' : <Play size={15} />}</button> : <div className="ai-copy-result" aria-live="polite">{mode === '图文创作' ? '灵感封面 + 主题标题' : '让想象启程，让未来发生。'}</div>}
         <div className="ai-scene-progress" aria-hidden="true"><i /><i /><i /></div>
       </div>
     </div>
@@ -102,12 +103,12 @@ function AssistantPreview() {
   </div>
 }
 
-export default function AIProductivity({ onConsult }: { onConsult: () => void }) {
+export default function AIProductivity({ onConsult, motionEnabled }: { onConsult: () => void; motionEnabled: boolean }) {
   return <section className="ai-productivity section" id="ai-productivity" aria-labelledby="ai-productivity-title">
     <div className="ai-productivity-wrap">
       <div className="section-heading ai-section-heading"><p className="eyebrow">FROM INTELLIGENCE TO IMPACT</p><h2 id="ai-productivity-title">不止模型，更有开箱即用的 <span>AI 生产力</span></h2><p>从内容创作到编码研发，让模型能力走进每一天的工作。</p></div>
       <div className="ai-app-grid">
-        <article className="ai-app-card ai-create-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 AI 创作平台</span><h3>智能创作，灵感一键成形</h3><p>从一句灵感到完整内容，连接图文创作、视频分镜与营销文案，让每个好想法都有表达。</p><button className="ai-app-link" onClick={onConsult}>探索创作方案 <ArrowUpRight size={15} /></button></div><CreationPreview /></article>
+        <article className="ai-app-card ai-create-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 AI 创作平台</span><h3>智能创作，灵感一键成形</h3><p>从一句灵感到完整内容，连接图文创作、视频分镜与营销文案，让每个好想法都有表达。</p><button className="ai-app-link" onClick={onConsult}>探索创作方案 <ArrowUpRight size={15} /></button></div><CreationShowcase motionEnabled={motionEnabled}><CreationPreview motionEnabled={motionEnabled} /></CreationShowcase></article>
         <article className="ai-app-card ai-develop-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 Code 应用开发</span><h3>从需求到应用，AI 一站协同</h3><p>理解业务需求，串联代码、组件与团队知识。从灵感原型出发，探索更高效的应用开发方式。</p><button className="ai-app-link" onClick={onConsult}>探索开发方案 <ArrowUpRight size={15} /></button></div><CodePreview /></article>
         <article className="ai-app-card ai-assist-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 Mate 智能助手</span><h3>智能搭档，日常任务轻松处理</h3><p>覆盖文档处理、数据分析与调研总结，把重复工作交给助手，将更多时间留给思考与创造。</p><button className="ai-app-link" onClick={onConsult}>探索助手方案 <ArrowUpRight size={15} /></button></div><AssistantPreview /></article>
       </div>

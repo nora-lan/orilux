@@ -1,0 +1,14 @@
+ai-creation-showcase.mp4
+Source page: https://www.jdcloud.com/cn
+Source asset: https://img1.jcloudcs.com/portal/index/v11/aiwork/aiwork1a.mp4
+Retrieved: 2026-11-02
+Original JD Cloud AI creation showcase selected by the user.
+The animation and its embedded branding are kept intact.
+
+ai-creation-showcase.webm
+Compatibility transcode of the original MP4: VP9, 960x540, 60 fps, no audio.
+The complete original 10.017-second sequence is preserved.
+
+ai-creation-poster.png
+Source asset: https://img1.jcloudcs.com/portal/index/v11/aiwork/aiwork1.png
+Matched from the original page's first AI creation card.
