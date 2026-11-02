@@ -1,24 +1,29 @@
-/* Both initials stay visible in every state; focus changes emphasis only. */
+/* One continuous reference silhouette remains visible in all display modes. */
 .art-scene{pointer-events:none}.art-scene>.glass-block{pointer-events:auto}
 .brand-platform{isolation:isolate;pointer-events:auto}
 .brand-platform::after{pointer-events:none}
 .brand-platform:hover,.brand-platform:focus-within{animation-play-state:paused}
-.monogram-letters{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:2px;width:206px;transform:translateY(-4px);pointer-events:auto}
-.monogram-letter{position:relative;width:100px;height:132px;flex:0 0 100px;padding:0;border:0;border-radius:15px;pointer-events:auto;transform:translateY(0);transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .4s,opacity .4s;filter:drop-shadow(-3px 10px 5px #356bd334)}
-.monogram-letter svg{display:block;width:100%;height:100%;pointer-events:none}
-.monogram-letter:hover,.monogram-letter:focus-visible,.monogram-letter[aria-pressed="true"]{transform:translateY(-14px);filter:drop-shadow(-4px 17px 7px #2d6cff55) brightness(1.08)}
-.monogram-letter:focus-visible{outline:2px solid #377cff;outline-offset:5px;background:#fff5}
-.brand-platform[data-brand-focus="Y"] .letter-j,.brand-platform[data-brand-focus="J"] .letter-y{opacity:.72;transform:translateY(4px)}
-.brand-platform[data-brand-focus="Y"] .letter-j:hover,.brand-platform[data-brand-focus="J"] .letter-y:hover,.brand-platform[data-brand-focus="Y"] .letter-j:focus-visible,.brand-platform[data-brand-focus="J"] .letter-y:focus-visible{opacity:1;transform:translateY(-10px)}
-.monogram-halo{position:absolute;inset:42px 25px;border-radius:50%;background:radial-gradient(ellipse,#5f9aff44,transparent 70%);transition:translate .55s,scale .55s;pointer-events:none}
-.brand-platform[data-brand-focus="Y"] .monogram-halo{translate:-35px 0;scale:.8}
-.brand-platform[data-brand-focus="J"] .monogram-halo{translate:35px 0;scale:.8}
-.monogram-signature{position:absolute;bottom:33px;left:0;right:0;text-align:center;font-size:7px;letter-spacing:2px;color:#608bd1;pointer-events:none}
+.monogram-emblem{position:relative;z-index:2;width:191px;height:174px;padding:0;border:0;border-radius:18px;pointer-events:auto;transform:translateY(-13px);transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .4s;filter:drop-shadow(-4px 10px 5px #356bd334)}
+.monogram-emblem svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}
+.monogram-emblem:hover,.monogram-emblem:focus-visible{transform:translateY(-22px);filter:drop-shadow(-4px 17px 7px #2d6cff55) brightness(1.06)}
+.monogram-emblem:focus-visible{outline:2px solid #377cff;outline-offset:5px;background:#fff3}
+.emblem-surface,.emblem-depth,.emblem-outline{transition:opacity .55s}
+.emblem-outline{opacity:0}.emblem-shine{opacity:0;pointer-events:none}
+.brand-platform[data-brand-focus="outline"] .emblem-surface{opacity:.08}
+.brand-platform[data-brand-focus="outline"] .emblem-depth{opacity:0}
+.brand-platform[data-brand-focus="outline"] .emblem-outline{opacity:1}
+.brand-platform[data-brand-focus="outline"] .monogram-emblem{filter:drop-shadow(0 2px 4px #4477cc16)}
+.brand-platform[data-brand-focus="glow"] .monogram-emblem{filter:drop-shadow(0 0 11px #6caaff88) drop-shadow(-4px 12px 6px #356bd334)}
+.brand-platform[data-brand-focus="glow"] .emblem-shine{opacity:1;animation:emblem-light-pass 4.5s ease-in-out infinite}
+@keyframes emblem-light-pass{0%,15%{translate:0 0}65%,100%{translate:2050px 0}}
+.monogram-halo{position:absolute;inset:32px 24px;border-radius:50%;background:radial-gradient(ellipse,#5f9aff44,transparent 70%);transition:opacity .55s,scale .55s;pointer-events:none}
+.brand-platform[data-brand-focus="outline"] .monogram-halo{opacity:.4;scale:.85}
+.brand-platform[data-brand-focus="glow"] .monogram-halo{scale:1.15;background:radial-gradient(ellipse,#65a7ff70,transparent 70%)}
+.monogram-signature{position:absolute;bottom:26px;left:0;right:0;text-align:center;font-size:7px;letter-spacing:2px;color:#608bd1;pointer-events:none}
 .brand-interaction{position:absolute;left:50%;bottom:-32px;transform:translateX(-50%);width:310px;z-index:5;text-align:center}
 .brand-caption{min-height:23px;font-size:10px;line-height:1.5;letter-spacing:.6px;color:#5273ab;margin-bottom:7px;white-space:nowrap}
 .brand-controls{display:inline-flex;align-items:center;padding:4px;border:1px solid #ffffffd9;border-radius:28px;background:#ffffff9e;box-shadow:0 7px 24px #365dab0c;backdrop-filter:blur(10px);gap:3px}
-.brand-controls button{display:flex;align-items:center;justify-content:center;gap:7px;min-width:76px;min-height:34px;padding:6px 12px;border-radius:21px;font-size:10px;color:#6f87ae;transition:background .25s,color .25s,box-shadow .25s}
-.brand-controls button strong{font-size:12px;letter-spacing:.4px;font-weight:700}
+.brand-controls button{display:flex;align-items:center;justify-content:center;gap:7px;min-width:76px;min-height:38px;padding:6px 12px;border-radius:21px;font-size:11px;color:#6f87ae;transition:background .25s,color .25s,box-shadow .25s}
 .brand-controls button:hover{background:#e7efff;color:#2864ff}
 .brand-controls button[aria-pressed="true"]{background:#fff;color:#2864ff;box-shadow:0 2px 8px #2962d61c}
 .brand-controls button:focus-visible{outline-offset:1px}
@@ -26,6 +31,7 @@
 .brand-hint .touch-hint{display:none}
 .interactive-hero .art-label{right:7px;bottom:66px;padding:8px 10px;font-size:8px;opacity:0;pointer-events:none}
 .interactive-hero .art-label.hotspot-active{opacity:1}
-@media(max-width:700px){.brand-controls button{min-height:62px;min-width:96px;font-size:16px}.brand-controls button strong{font-size:19px}.brand-caption{font-size:16px;min-height:28px}.brand-interaction{bottom:-78px;width:420px}.brand-hint{font-size:14px}.brand-hint .pointer-hint{display:none}.brand-hint .touch-hint{display:inline}.monogram-letter{min-width:100px}.interactive-hero .art-label{bottom:62px}}
-html[data-motion="off"] .monogram-letter,html[data-motion="off"] .monogram-letter:hover,html[data-motion="off"] .monogram-letter:focus-visible{transform:none!important}
-@media(prefers-reduced-motion:reduce){.monogram-letter,.monogram-letter:hover,.monogram-letter:focus-visible,.monogram-letter[aria-pressed="true"]{transform:none!important}}
+@media(max-width:700px){.brand-controls button{min-height:70px;min-width:100px;font-size:17px}.brand-caption{font-size:16px;min-height:28px}.brand-interaction{bottom:-78px;width:420px}.brand-hint{font-size:14px}.brand-hint .pointer-hint{display:none}.brand-hint .touch-hint{display:inline}.interactive-hero .art-label{bottom:62px}}
+html[data-motion="off"] .monogram-emblem{transform:translateY(-13px)!important}
+html[data-motion="off"] .emblem-shine{animation:none!important;opacity:0!important}
+@media(prefers-reduced-motion:reduce){.monogram-emblem,.monogram-emblem:hover,.monogram-emblem:focus-visible{transform:translateY(-13px)!important}.emblem-shine{animation:none!important;opacity:0!important}}

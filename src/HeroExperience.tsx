@@ -17,7 +17,7 @@ export default function HeroExperience({ motionEnabled, onContact, onExplore }: 
   const [inView, setInView] = useState(true)
   const [visible, setVisible] = useState(!document.hidden)
   const [hotspot, setHotspot] = useState<string | null>(null)
-  const [brandFocus, setBrandFocus] = useState<BrandFocus>('YJ')
+  const [brandFocus, setBrandFocus] = useState<BrandFocus>('solid')
   const section = useRef<HTMLElement>(null)
   const active = slides[slide]
   const playing = motionEnabled && !paused && !hovered && !focused && inView && visible
@@ -51,7 +51,7 @@ export default function HeroExperience({ motionEnabled, onContact, onExplore }: 
       <button className="glass-block block-three" aria-label="探索云基础设施产品" onClick={() => onExplore('云基础设施')} onPointerEnter={() => setHotspot('弹性云服务 · 点击探索')} onFocus={() => setHotspot('弹性云服务 · 点击探索')} onBlur={() => setHotspot(null)} onPointerLeave={() => setHotspot(null)}><Cpu size={30} /></button>
       <span className="art-point point-one" aria-hidden="true" /><span className="art-point point-two" aria-hidden="true" /><span className="art-cross cross-one" aria-hidden="true">+</span><span className="art-cross cross-two" aria-hidden="true">+</span>
     </div><div className={`art-label ${hotspot ? 'hotspot-active' : ''}`}><span />{hotspot}</div>
-      <div className="brand-interaction"><p className="brand-caption" aria-live="polite" aria-atomic="true">{brandViews.find(view => view.id === brandFocus)?.caption}</p><div className="brand-controls" role="group" aria-label="字母展示模式">{brandViews.map(view => <button key={view.id} type="button" aria-label={view.id === 'YJ' ? '展示 YJ 全景' : `展示 ${view.id} · ${view.label}`} aria-pressed={brandFocus === view.id} onClick={() => setBrandFocus(view.id)}><strong>{view.id}</strong>{view.label}</button>)}</div><p className="brand-hint"><span className="pointer-hint">悬停点亮 · 点击字母探索</span><span className="touch-hint">轻触字母 · 探索曜境</span></p></div>
+      <div className="brand-interaction"><p className="brand-caption" aria-live="polite" aria-atomic="true">{brandViews.find(view => view.id === brandFocus)?.caption}</p><div className="brand-controls" role="group" aria-label="标识展示模式">{brandViews.map(view => <button key={view.id} type="button" aria-label={`${view.label}展示`} aria-pressed={brandFocus === view.id} onClick={() => setBrandFocus(view.id)}>{view.label}</button>)}</div><p className="brand-hint"><span className="pointer-hint">悬停点亮 · 点击标识切换</span><span className="touch-hint">轻触标识 · 切换展示</span></p></div>
     </div></div>
     <div className="hero-pagination"><div className="hero-slide-tabs" role="group" aria-label="首屏主题">{slides.map((item, index) => <button key={item.short} className={slide === index ? 'active' : ''} aria-pressed={slide === index} aria-label={`切换到${item.short}主题`} onClick={() => selectSlide(index)}><span>0{index + 1}</span><i /><strong>{item.short}</strong></button>)}</div><div className="hero-player"><button aria-label="上一主题" onClick={() => selectSlide((slide + 2) % 3)}>←</button><button className="autoplay-toggle" aria-label={paused ? '播放首屏主题' : '暂停首屏主题'} aria-pressed={!paused && motionEnabled} disabled={!motionEnabled} onClick={() => { setPaused(!paused); if (paused) setFocused(false) }}>{paused || !motionEnabled ? '▷' : 'Ⅱ'}</button><button aria-label="下一主题" onClick={() => selectSlide((slide + 1) % 3)}>→</button></div><a href="#products" aria-label="向下浏览产品">↓</a></div>
   </section>
