@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { ArrowUpRight, ArrowRight, X, Menu, Cpu, Sparkles, Check } from './icons'
 import HeroExperience from './HeroExperience'
+import BrandLogoSvg from './BrandLogoSvg'
 import { usePageMotion } from './usePageMotion'
 import AIProductivity from './AIProductivity'
 import CommunitySection from './CommunitySection'
@@ -39,7 +40,7 @@ function Symbol({ kind, size = 27 }: { kind: string; size?: number }) {
     {kind === 'data' ? <><ellipse cx="16" cy="7" rx="10" ry="4" /><path d="M6 7v18c0 5 20 5 20 0V7M6 16c0 5 20 5 20 0" /></> : kind === 'shield' ? <><path d="M16 3 27 7v8c0 7-5 11-11 14C10 26 5 22 5 15V7Z" /><path d="m11 15 4 4 7-8" /></> : kind === 'network' ? <><rect x="11" y="3" width="10" height="7" rx="1" /><rect x="2" y="23" width="10" height="7" rx="1" /><rect x="20" y="23" width="10" height="7" rx="1" /><path d="M16 10v7H7v6m9-6h9v6" /></> : <><path d="m16 2 13 7v14l-13 7L3 23V9Z" /><path d="m3 9 13 7 13-7M16 16v14M10 5l13 7v7" /></>}
   </svg>
 }
-function Brand() { return <span className="brand"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M4 6h9l7 10-5 8L4 6Z" fill="#2762ff" /><path d="M25 6h9L17 31H7L25 6Z" fill="#2762ff" /></svg><strong>曜境<span>YAOJING</span></strong></span> }
+function Brand() { return <span className="brand"><BrandLogoSvg compact /><strong>曜境<span>YAOJING</span></strong></span> }
 function App() {
   const { enabled: motionEnabled, systemReduced, toggleMotion, activeSection, progressRef } = usePageMotion()
   const [category, setCategory] = useState('精选产品')
