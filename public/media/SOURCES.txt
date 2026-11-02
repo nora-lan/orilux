@@ -12,3 +12,17 @@ The complete original 10.017-second sequence is preserved.
 ai-creation-poster.png
 Source asset: https://img1.jcloudcs.com/portal/index/v11/aiwork/aiwork1.png
 Matched from the original page's first AI creation card.
+
+ai-code-showcase.mp4
+Source page: https://www.jdcloud.com/cn
+Source asset: https://img1.jcloudcs.com/portal/index/v11/aiwork/aiwork2.mp4
+Retrieved: 2026-11-02
+Original JD Cloud application development animation selected by the user.
+
+ai-code-showcase.webm
+Compatibility transcode: VP9, 960x540, 60 fps, no audio.
+The complete original 8.050-second sequence is preserved.
+
+ai-code-poster.png
+Source asset: https://img1.jcloudcs.com/portal/index/v11/aiwork/aiwork2.png
+Matched from the original page's second AI application development card.

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { ArrowRight, ArrowUpRight, Check, Play, Sparkles } from './icons'
-import CreationShowcase from './CreationShowcase'
+import ProductShowcase from './ProductShowcase'
 
 const creationModes = ['视频分镜', '图文创作', '营销文案'] as const
 const assistantTasks = ['文档处理', '数据分析', '调研总结'] as const
@@ -108,8 +108,8 @@ export default function AIProductivity({ onConsult, motionEnabled }: { onConsult
     <div className="ai-productivity-wrap">
       <div className="section-heading ai-section-heading"><p className="eyebrow">FROM INTELLIGENCE TO IMPACT</p><h2 id="ai-productivity-title">不止模型，更有开箱即用的 <span>AI 生产力</span></h2><p>从内容创作到编码研发，让模型能力走进每一天的工作。</p></div>
       <div className="ai-app-grid">
-        <article className="ai-app-card ai-create-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 AI 创作平台</span><h3>智能创作，灵感一键成形</h3><p>从一句灵感到完整内容，连接图文创作、视频分镜与营销文案，让每个好想法都有表达。</p><button className="ai-app-link" onClick={onConsult}>探索创作方案 <ArrowUpRight size={15} /></button></div><CreationShowcase motionEnabled={motionEnabled}><CreationPreview motionEnabled={motionEnabled} /></CreationShowcase></article>
-        <article className="ai-app-card ai-develop-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 Code 应用开发</span><h3>从需求到应用，AI 一站协同</h3><p>理解业务需求，串联代码、组件与团队知识。从灵感原型出发，探索更高效的应用开发方式。</p><button className="ai-app-link" onClick={onConsult}>探索开发方案 <ArrowUpRight size={15} /></button></div><CodePreview /></article>
+        <article className="ai-app-card ai-create-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 AI 创作平台</span><h3>智能创作，灵感一键成形</h3><p>从一句灵感到完整内容，连接图文创作、视频分镜与营销文案，让每个好想法都有表达。</p><button className="ai-app-link" onClick={onConsult}>探索创作方案 <ArrowUpRight size={15} /></button></div><ProductShowcase variant="creation" motionEnabled={motionEnabled}><CreationPreview motionEnabled={motionEnabled} /></ProductShowcase></article>
+        <article className="ai-app-card ai-develop-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 Code 应用开发</span><h3>从需求到应用，AI 一站协同</h3><p>理解业务需求，串联代码、组件与团队知识。从灵感原型出发，探索更高效的应用开发方式。</p><button className="ai-app-link" onClick={onConsult}>探索开发方案 <ArrowUpRight size={15} /></button></div><ProductShowcase variant="code" motionEnabled={motionEnabled}><CodePreview /></ProductShowcase></article>
         <article className="ai-app-card ai-assist-card"><div className="ai-app-copy"><span className="ai-product-label">曜境 Mate 智能助手</span><h3>智能搭档，日常任务轻松处理</h3><p>覆盖文档处理、数据分析与调研总结，把重复工作交给助手，将更多时间留给思考与创造。</p><button className="ai-app-link" onClick={onConsult}>探索助手方案 <ArrowUpRight size={15} /></button></div><AssistantPreview /></article>
       </div>
       <p className="ai-demo-note">交互演示 · 展示预设创作素材、应用原型与助手工作流</p>
