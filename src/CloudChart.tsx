@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as echarts from 'echarts/core'
 import { LineChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent } from 'echarts/components'
@@ -6,8 +6,12 @@ import { CanvasRenderer } from 'echarts/renderers'
 
 echarts.use([LineChart, GridComponent, TooltipComponent, CanvasRenderer])
 
+type CloudMode = 'latency' | 'throughput'
 type CloudChartProps = {
-  mode: 'latency' | 'throughput'
+  mode: CloudMode
+  load?: number
+  tour?: boolean
+  reducedMotion?: boolean
 }
 
 const samples = {
@@ -27,26 +31,81 @@ const samples = {
   },
 }
 
+const clampLoad = (load: number) => Number.isFinite(load) ? Math.min(3, Math.max(1, load)) : 1
 const average = (values: number[]) => values.reduce((sum, value) => sum + value, 0) / values.length
-export const cloudMetrics = {
-  latency: { value: average(samples.latency.current).toFixed(0), unit: ' ms' },
-  throughput: { value: (average(samples.throughput.current) / 1000).toFixed(2), unit: ' k / s' },
+
+function getSample(mode: CloudMode, load: number) {
+  const multiplier = clampLoad(load)
+  const base = samples[mode]
+  const latency = mode === 'latency'
+  const currentFactor = latency ? 1 + (multiplier - 1) * 0.3 : multiplier
+  const referenceFactor = latency ? 1 + (multiplier - 1) * 0.65 : multiplier
+  const round = (value: number) => latency ? Math.round(value * 10) / 10 : Math.round(value)
+  return {
+    ...base,
+    current: base.current.map(value => round(value * currentFactor)),
+    reference: base.reference.map(value => round(value * referenceFactor)),
+  }
 }
 
-export default function CloudChart({ mode }: CloudChartProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
+/** The headline metrics and the plotted series share the same simulated samples. */
+export function getCloudMetrics(mode: CloudMode, load = 1) {
+  const mean = average(getSample(mode, load).current)
+  return mode === 'latency'
+    ? { value: mean.toFixed(1).replace(/\.0$/, ''), unit: ' ms' }
+    : { value: (mean / 1000).toFixed(2), unit: ' k / s' }
+}
 
+export const cloudMetrics = {
+  latency: getCloudMetrics('latency'),
+  throughput: getCloudMetrics('throughput'),
+}
+
+export default function CloudChart({ mode, load = 1, tour = false, reducedMotion = false }: CloudChartProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const chartRef = useRef<echarts.EChartsType | null>(null)
+  const [systemReducedMotion, setSystemReducedMotion] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
+  const reduce = reducedMotion || systemReducedMotion
+  const effectiveLoad = clampLoad(load)
+
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = () => setSystemReducedMotion(preference.matches)
+    preference.addEventListener('change', onChange)
+    return () => preference.removeEventListener('change', onChange)
+  }, [])
+
+  // Mount the canvas once. Mode and load changes update the existing series below.
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
-
     const chart = echarts.init(container, undefined, { renderer: 'canvas' })
-    const sample = samples[mode]
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    chartRef.current = chart
+    const observer = new ResizeObserver(() => chart.resize())
+    observer.observe(container)
+    return () => {
+      observer.disconnect()
+      chartRef.current = null
+      chart.dispose()
+    }
+  }, [])
 
+  useEffect(() => {
+    const chart = chartRef.current
+    if (!chart) return
+    const sample = getSample(mode, effectiveLoad)
+    const axisStep = mode === 'latency' ? 20 : 1000
+    const maximum = Math.max(sample.maximum, Math.ceil(Math.max(...sample.current, ...sample.reference) * 1.12 / axisStep) * axisStep)
+
+    chart.dispatchAction({ type: 'hideTip' })
+    chart.dispatchAction({ type: 'downplay' })
     chart.setOption({
-      animation: !reducedMotion,
-      animationDuration: 450,
+      animation: !reduce,
+      animationDuration: 650,
+      animationDurationUpdate: reduce ? 0 : 650,
+      animationEasingUpdate: 'cubicOut',
       color: ['#2864ff', '#b8c2d5'],
       textStyle: { fontFamily: 'Inter, "Microsoft YaHei", sans-serif' },
       grid: { left: 48, right: 18, top: 24, bottom: 28 },
@@ -58,7 +117,7 @@ export default function CloudChart({ mode }: CloudChartProps) {
         padding: [10, 14],
         textStyle: { color: '#27334c', fontSize: 12 },
         extraCssText: 'box-shadow: 0 8px 28px rgba(28, 57, 105, 0.09); border-radius: 8px;',
-        axisPointer: { type: 'line', lineStyle: { color: '#d8e2f6', type: 'dashed' } },
+        axisPointer: { type: 'line', lineStyle: { color: '#c6d8fa', type: 'dashed' } },
         valueFormatter: (value: number) => `${value.toLocaleString()} ${sample.unit}`,
       },
       xAxis: {
@@ -72,7 +131,7 @@ export default function CloudChart({ mode }: CloudChartProps) {
       yAxis: {
         type: 'value',
         min: 0,
-        max: sample.maximum,
+        max: maximum,
         splitNumber: 4,
         axisLine: { show: false },
         axisTick: { show: false },
@@ -85,6 +144,7 @@ export default function CloudChart({ mode }: CloudChartProps) {
       },
       series: [
         {
+          id: 'yaojing-simulation',
           name: '曜境云（演示）',
           type: 'line',
           data: sample.current,
@@ -93,14 +153,16 @@ export default function CloudChart({ mode }: CloudChartProps) {
           symbol: 'circle',
           symbolSize: 7,
           lineStyle: { width: 3 },
+          emphasis: { focus: 'series', scale: 1.4 },
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(40, 100, 255, 0.12)' },
+              { offset: 0, color: 'rgba(40, 100, 255, 0.14)' },
               { offset: 1, color: 'rgba(40, 100, 255, 0)' },
             ]),
           },
         },
         {
+          id: 'reference-simulation',
           name: '参考配置（演示）',
           type: 'line',
           data: sample.reference,
@@ -112,21 +174,70 @@ export default function CloudChart({ mode }: CloudChartProps) {
         },
       ],
     })
+  }, [mode, effectiveLoad, reduce])
 
-    const observer = new ResizeObserver(() => chart.resize())
-    observer.observe(container)
+  useEffect(() => {
+    const container = containerRef.current
+    const chart = chartRef.current
+    if (!container || !chart || !tour || reduce) return
 
-    return () => {
-      observer.disconnect()
-      chart.dispose()
+    let interval: ReturnType<typeof setInterval> | undefined
+    let inView = false
+    let hovered = container.matches(':hover')
+    let nextIndex = 0
+    const stop = () => {
+      if (interval !== undefined) clearInterval(interval)
+      interval = undefined
     }
-  }, [mode])
+    const clearHighlight = () => {
+      if (chart.isDisposed()) return
+      chart.dispatchAction({ type: 'hideTip' })
+      chart.dispatchAction({ type: 'downplay' })
+    }
+    const showNext = () => {
+      if (chart.isDisposed()) return
+      chart.dispatchAction({ type: 'downplay' })
+      chart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataIndex: nextIndex })
+      chart.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: nextIndex })
+      nextIndex = (nextIndex + 1) % samples[mode].current.length
+    }
+    const sync = () => {
+      if (!inView || document.hidden || hovered) {
+        stop()
+        if (!hovered) clearHighlight()
+        return
+      }
+      if (interval === undefined) {
+        showNext()
+        interval = setInterval(showNext, 2000)
+      }
+    }
+    const onEnter = () => { hovered = true; stop(); clearHighlight() }
+    const onLeave = () => { hovered = false; sync() }
+    const observer = new IntersectionObserver(entries => {
+      inView = entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= 0.2)
+      sync()
+    }, { threshold: [0, 0.2] })
+
+    observer.observe(container)
+    document.addEventListener('visibilitychange', sync)
+    container.addEventListener('pointerenter', onEnter)
+    container.addEventListener('pointerleave', onLeave)
+    return () => {
+      stop()
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', sync)
+      container.removeEventListener('pointerenter', onEnter)
+      container.removeEventListener('pointerleave', onLeave)
+      clearHighlight()
+    }
+  }, [tour, reduce, mode, effectiveLoad])
 
   return (
     <div
       ref={containerRef}
       role="img"
-      aria-label={`近 24 小时${samples[mode].title}趋势，曜境云与参考配置对比。所有数值均为演示数据，不代表实测性能。`}
+      aria-label={`近 24 小时${samples[mode].title}趋势，模拟负载 ${effectiveLoad} 倍，曜境云与参考配置对比。所有数值均为演示数据，不代表实测性能。`}
       style={{ height: 230, width: '100%', minWidth: 0 }}
     />
   )
