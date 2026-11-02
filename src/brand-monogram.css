@@ -3,12 +3,15 @@
 .brand-assembly{position:absolute;inset:0;pointer-events:none;transform-style:preserve-3d}
 .brand-platform{isolation:isolate;pointer-events:none}
 .brand-platform::after{pointer-events:none}
-.brand-assembly:has(.monogram-emblem:hover) .brand-platform,.brand-assembly:focus-within .brand-platform,.brand-assembly:has(.monogram-emblem:hover) .monogram-stand,.brand-assembly:focus-within .monogram-stand{animation-play-state:paused}
-.monogram-stand{position:absolute;left:175px;top:80px;width:218px;height:210px;transform:rotateY(-12deg);transform-origin:50% 100%;animation:platform-breathe 6s ease-in-out infinite}
-.monogram-emblem{position:relative;z-index:2;width:100%;height:100%;padding:0;border:0;border-radius:18px;pointer-events:auto;transform:translateY(0);transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .4s;filter:drop-shadow(5px 8px 3px #2455b626)}
+.brand-assembly[data-raised="true"] .brand-platform,.brand-assembly[data-raised="true"] .monogram-stand{animation-play-state:paused}
+/* Keep the hit area still while only the graphic moves, avoiding hover flicker. */
+.monogram-trigger{position:absolute;left:135px;top:72px;width:294px;height:288px;padding:0;border:0;border-radius:30px;pointer-events:auto;touch-action:manipulation;transform-style:preserve-3d}
+.monogram-trigger:focus-visible{outline:2px solid #377cff;outline-offset:5px}
+.monogram-stand{display:block;position:absolute;left:40px;top:8px;width:218px;height:210px;transform:translate(-8px,83px) rotateX(55deg) rotateY(0deg) rotateZ(-39deg) scale(.87);transform-origin:50% 50%;transition:transform .85s cubic-bezier(.22,.8,.22,1);animation:platform-breathe 6s ease-in-out infinite;pointer-events:none}
+.brand-assembly[data-raised="true"] .monogram-stand{transform:translate(0,0) rotateX(0deg) rotateY(-12deg) rotateZ(0deg) scale(1)}
+.monogram-emblem{display:block;position:relative;width:100%;height:100%;pointer-events:none;transition:filter .65s;filter:drop-shadow(3px 7px 3px #2455b633)}
 .monogram-emblem svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}
-.monogram-emblem:hover,.monogram-emblem:focus-visible{transform:translateY(-7px);filter:drop-shadow(6px 14px 5px #2d6cff44) brightness(1.06)}
-.monogram-emblem:focus-visible{outline:2px solid #377cff;outline-offset:5px;background:#fff3}
+.brand-assembly[data-raised="true"] .monogram-emblem{filter:drop-shadow(5px 8px 3px #2455b626) brightness(1.04)}
 .emblem-surface,.emblem-depth,.emblem-outline{transition:opacity .55s}
 .emblem-outline{opacity:0}.emblem-shine{opacity:0;pointer-events:none}
 .brand-assembly[data-brand-focus="outline"] .emblem-surface{opacity:.08}
@@ -19,8 +22,9 @@
 .brand-assembly[data-brand-focus="glow"] .emblem-shine{opacity:1;animation:emblem-light-pass 4.5s ease-in-out infinite}
 @keyframes emblem-light-pass{0%,15%{translate:0 0}65%,100%{translate:2050px 0}}
 .monogram-halo{position:absolute;inset:32px 24px;border-radius:50%;background:radial-gradient(ellipse,#5f9aff44,transparent 70%);transition:opacity .55s,scale .55s;pointer-events:none}
-.monogram-contact-shadow{position:absolute;left:40px;top:102px;width:172px;height:53px;border-radius:50%;background:radial-gradient(ellipse,#315fbe66,transparent 70%);filter:blur(5px);transform:rotateZ(39deg);pointer-events:none}
-.brand-assembly[data-brand-focus="outline"] .monogram-contact-shadow{opacity:.4}
+.monogram-contact-shadow{position:absolute;left:40px;top:102px;width:172px;height:53px;border-radius:50%;background:radial-gradient(ellipse,#315fbe66,transparent 70%);filter:blur(5px);transform:rotateZ(39deg) scale(1.05,1.6);opacity:.45;transition:transform .85s cubic-bezier(.22,.8,.22,1),opacity .85s;pointer-events:none}
+.brand-assembly[data-raised="true"] .monogram-contact-shadow{transform:rotateZ(39deg) scale(1,1);opacity:1}
+.brand-assembly[data-brand-focus="outline"] .monogram-contact-shadow{opacity:.25}
 .art-scene .block-one{left:373px;top:27px}
 .brand-assembly[data-brand-focus="outline"] .monogram-halo{opacity:.4;scale:.85}
 .brand-assembly[data-brand-focus="glow"] .monogram-halo{scale:1.15;background:radial-gradient(ellipse,#65a7ff70,transparent 70%)}
@@ -40,4 +44,3 @@
 html[data-motion="off"] .monogram-emblem{transform:none!important}
 html[data-motion="off"] .emblem-shine{animation:none!important;opacity:0!important}
 @media(prefers-reduced-motion:reduce){.monogram-emblem,.monogram-emblem:hover,.monogram-emblem:focus-visible{transform:none!important}.emblem-shine{animation:none!important;opacity:0!important}}
-
