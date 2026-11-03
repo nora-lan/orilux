@@ -1,4 +1,4 @@
-/* One continuous reference silhouette remains visible in all display modes. */
+/* Dimensional metal and a light sweep share the complete reference silhouette. */
 .art-scene{pointer-events:none;transform-style:flat}.art-scene>.glass-block{pointer-events:auto}
 .brand-assembly{position:absolute;inset:0;pointer-events:none;transform-style:flat;isolation:isolate}
 .brand-platform{isolation:isolate;pointer-events:none}
@@ -18,39 +18,25 @@
 .monogram-side{position:absolute;inset:0;display:block;pointer-events:none}
 .monogram-side svg{width:100%;height:100%;display:block;overflow:visible}
 .monogram-side svg g{fill:#2259c7}
-.brand-assembly[data-brand-focus="outline"] .monogram-side{visibility:hidden}
 .monogram-emblem{display:block;position:relative;width:100%;height:100%;pointer-events:none;transition:filter .65s;filter:drop-shadow(3px 7px 3px #2455b633)}
 .monogram-emblem svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}
 .brand-assembly[data-raised="true"] .monogram-emblem{filter:drop-shadow(5px 8px 3px #2455b626) brightness(1.04)}
 .emblem-surface,.emblem-depth,.emblem-outline{transition:opacity .55s}
 .emblem-outline{opacity:0}.emblem-shine{opacity:0;pointer-events:none}
-.brand-assembly[data-brand-focus="outline"] .emblem-surface{opacity:.08}
-.brand-assembly[data-brand-focus="outline"] .emblem-depth{opacity:0}
-.brand-assembly[data-brand-focus="outline"] .emblem-outline{opacity:1}
-.brand-assembly[data-brand-focus="outline"] .monogram-emblem{filter:drop-shadow(0 2px 4px #4477cc16)}
 .brand-assembly[data-brand-focus="glow"] .monogram-emblem{filter:drop-shadow(0 0 11px #6caaff88) drop-shadow(-4px 12px 6px #356bd334)}
 .brand-assembly[data-brand-focus="glow"] .emblem-shine{opacity:1;animation:emblem-light-pass 4.5s ease-in-out infinite}
+.brand-assembly[data-scene-active="false"] .emblem-shine{animation-play-state:paused}
 @keyframes emblem-light-pass{0%,15%{translate:0 0}65%,100%{translate:2050px 0}}
 .monogram-halo{position:absolute;inset:32px 24px;border-radius:50%;background:radial-gradient(ellipse,#5f9aff44,transparent 70%);transition:opacity .55s,scale .55s;pointer-events:none}
 .monogram-contact-shadow{position:absolute;left:40px;top:102px;width:172px;height:53px;border-radius:50%;background:radial-gradient(ellipse,#315fbe66,transparent 70%);filter:blur(5px);transform:translate(0,0) rotateZ(39deg) scale(1.05,1.6);opacity:.45;transition:transform .85s cubic-bezier(.22,.8,.22,1),opacity .85s;pointer-events:none}
 .brand-assembly[data-raised="true"] .monogram-contact-shadow{transform:translate(-31px,38px) rotateZ(39deg) scale(1,1);opacity:1}
-.brand-assembly[data-brand-focus="outline"] .monogram-contact-shadow{opacity:.25}
 .art-scene .block-one{left:373px;top:27px}
-.brand-assembly[data-brand-focus="outline"] .monogram-halo{opacity:.4;scale:.85}
 .brand-assembly[data-brand-focus="glow"] .monogram-halo{scale:1.15;background:radial-gradient(ellipse,#65a7ff70,transparent 70%)}
 .monogram-signature{position:absolute;bottom:26px;left:0;right:0;text-align:center;font-size:7px;letter-spacing:2px;color:#608bd1;pointer-events:none}
-.brand-interaction{position:absolute;left:50%;bottom:-32px;transform:translateX(-50%);width:310px;z-index:5;text-align:center}
-.brand-caption{min-height:23px;font-size:10px;line-height:1.5;letter-spacing:.6px;color:#5273ab;margin-bottom:7px;white-space:nowrap}
-.brand-controls{display:inline-flex;align-items:center;padding:4px;border:1px solid #ffffffd9;border-radius:28px;background:#ffffff9e;box-shadow:0 7px 24px #365dab0c;backdrop-filter:blur(10px);gap:3px}
-.brand-controls button{display:flex;align-items:center;justify-content:center;gap:7px;min-width:76px;min-height:38px;padding:6px 12px;border-radius:21px;font-size:11px;color:#6f87ae;transition:background .25s,color .25s,box-shadow .25s}
-.brand-controls button:hover{background:#e7efff;color:#2864ff}
-.brand-controls button[aria-pressed="true"]{background:#fff;color:#2864ff;box-shadow:0 2px 8px #2962d61c}
-.brand-controls button:focus-visible{outline-offset:1px}
-.brand-hint{margin-top:8px;color:#879bbd;font-size:8px;letter-spacing:.4px}
-.brand-hint .touch-hint{display:none}
+.brand-caption{position:absolute;left:50%;bottom:42px;transform:translateX(-50%);width:310px;z-index:5;text-align:center;min-height:23px;font-size:10px;line-height:1.5;letter-spacing:.6px;color:#5273ab;margin:0;white-space:nowrap}
 .interactive-hero .art-label{right:7px;bottom:66px;padding:8px 10px;font-size:8px;opacity:0;pointer-events:none}
 .interactive-hero .art-label.hotspot-active{opacity:1}
-@media(max-width:700px){.brand-controls button{min-height:70px;min-width:100px;font-size:17px}.brand-caption{font-size:16px;min-height:28px}.brand-interaction{bottom:-78px;width:420px}.brand-hint{font-size:14px}.brand-hint .pointer-hint{display:none}.brand-hint .touch-hint{display:inline}.interactive-hero .art-label{bottom:62px}}
+@media(max-width:700px){.brand-caption{bottom:26px;width:420px;font-size:16px;min-height:28px}.interactive-hero .art-label{bottom:62px}}
 html[data-motion="off"] .monogram-emblem{transform:none!important}
 html[data-motion="off"] .emblem-shine{animation:none!important;opacity:0!important}
 @media(prefers-reduced-motion:reduce){.monogram-emblem,.monogram-emblem:hover,.monogram-emblem:focus-visible{transform:none!important}.emblem-shine{animation:none!important;opacity:0!important}}
