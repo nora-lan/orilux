@@ -22,3 +22,13 @@
 html[data-motion="off"]{scroll-behavior:auto}html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="off"] *::after{animation:none!important;transition:none!important}html[data-motion="off"] .reveal-target{opacity:1;translate:none}html[data-motion="off"] .art-scene,html[data-motion="off"] .product-card,html[data-motion="off"] .resource-card{transform:none}html[data-motion="off"] .motion-dot{background:#a5b2c6;box-shadow:none}html[data-motion="off"] .hero-slide-tabs>button.active>i::after{transform:scaleX(1)}
 @media(prefers-reduced-motion:reduce){.reveal-target{opacity:1;translate:none}.art-scene,.product-card,.resource-card{transform:none}.hero-slide-tabs>button.active>i::after{transform:scaleX(1)}}
 @media(max-width:960px){.main-nav a::after{bottom:4px;right:85%}}
+
+/* Let the desktop banner use the available screen width. */
+@media(min-width:1201px){
+  .interactive-hero .hero-inner,
+  .interactive-hero .hero-pagination{width:min(1760px,92%)}
+  .interactive-hero .cloud-art{right:0}
+}
+@media(min-width:1600px){
+  .interactive-hero .cloud-art{top:24px;transform:scale(1.12);transform-origin:right top}
+}
