@@ -25,15 +25,15 @@ export default function ArticlePage() {
         <span className="article-category">{post.category}</span>
         <h1>{post.title}</h1>
         <p className="article-page-summary">{post.summary}</p>
-        <div className="article-page-meta"><strong>{post.author || '曜境社区 · 内容示例'}</strong>{post.publishedAt && <time dateTime={post.publishedAt}>{post.publishedAt.replaceAll('-', '.')}</time>}<span>{post.readTime}</span>{SHOW_ARTICLE_COMMENTS && <a href="#article-comments">参与评论 ↓</a>}</div>
+        <div className="article-page-meta"><strong>{post.author || '曜境社区 · 内容示例'}</strong>{post.eventDate && <time className="article-event-date" dateTime={post.eventDate}>活动回顾 · {post.eventDate.replaceAll('-', '.')}</time>}{post.publishedAt && <time dateTime={post.publishedAt}>发布于 {post.publishedAt.replaceAll('-', '.')}</time>}<span>{post.readTime}</span>{SHOW_ARTICLE_COMMENTS && <a href="#article-comments">参与评论 ↓</a>}</div>
       </div>
     </section>
     <div className="article-columns wrap">
       <div className="article-primary">
         <article className="article-body" aria-label="文章正文">
-          {post.cover && <figure className="article-cover"><img src={post.cover.src} alt={post.cover.alt} width="2276" height="1280" /><figcaption>{post.cover.caption}</figcaption></figure>}
+          {post.cover && <figure className="article-cover"><img src={post.cover.src} alt={post.cover.alt} width={post.cover.width ?? 2276} height={post.cover.height ?? 1280} /><figcaption>{post.cover.caption}</figcaption></figure>}
           {post.introduction && <p className="article-introduction">{post.introduction}</p>}
-          {post.sections.map((part, index) => <section className="article-body-section" id={`part-${index + 1}`} key={part.title}><h2><span>0{index + 1}</span>{part.title}</h2><p>{part.text}</p></section>)}
+          {post.sections.map((part, index) => <section className="article-body-section" id={`part-${index + 1}`} key={part.title}><h2><span>0{index + 1}</span>{part.title}</h2><p>{part.text}</p>{part.image && <figure className="article-inline-photo"><img src={part.image.src} alt={part.image.alt} width={part.image.width} height={part.image.height} loading="lazy" decoding="async" /><figcaption>{part.image.caption}</figcaption></figure>}</section>)}
           <div className="article-end"><span>感谢阅读，与曜境一起探索更多可能。</span><button className="article-save" aria-pressed={saved.includes(post.id)} onClick={() => toggleSaved(post.id)}>{saved.includes(post.id) ? '✓ 已收藏' : '＋ 收藏文章'}</button></div>
           <p className="article-storage-note">{storageNotice}</p>
         </article>

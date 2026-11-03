@@ -1,5 +1,6 @@
 export const communityCategories = ['全部动态', '曜境日常', '技术分享', '产品更新', '社区活动'] as const
 export type CommunityCategory = typeof communityCategories[number]
+export type CommunityImage = { src: string; alt: string; caption: string; width?: number; height?: number }
 export type CommunityPost = {
   id: string
   category: Exclude<CommunityCategory, '全部动态'>
@@ -8,12 +9,53 @@ export type CommunityPost = {
   readTime: string
   author?: string
   publishedAt?: string
-  cover?: { src: string; alt: string; caption: string }
+  eventDate?: string
+  cover?: CommunityImage
   introduction?: string
-  sections: { title: string; text: string }[]
+  sections: { title: string; text: string; image?: CommunityImage }[]
 }
 
 export const communityPosts: CommunityPost[] = [
+  {
+    id: 'yaojing-ai-summit-2026', category: '社区活动', readTime: '约 3 分钟',
+    title: '解锁 AI 无限可能｜河北曜境智能科技交流大会回顾',
+    summary: '回望 10 月 15 日的邯郸相聚，从台上的分享、台下的记录，到一张共同的合影，留下关于 AI、学习与同行的现场记忆。',
+    author: '曜境科技', publishedAt: '2026-11-03', eventDate: '2026-10-15',
+    cover: {
+      src: '/media/yaojing-ai-summit-2026-group.jpg', width: 1545, height: 1031,
+      alt: '河北曜境智能科技交流大会现场合影，与会者共同举起“解锁 AI 无限可能，共赴智能创新之约”的横幅',
+      caption: '2026 年 10 月 15 日 · 河北曜境智能科技交流大会现场合影',
+    },
+    introduction: '2026 年 10 月 15 日，河北曜境智能科技交流大会在邯郸举行。“解锁 AI 无限可能，共赴智能创新之约”，这句话出现在现场的合影横幅上，也为这次相聚留下了鲜明的注脚。今天，我们通过几张现场照片，回看这场关于人工智能的交流：有人站上讲台分享，有人坐在台下认真记录，彼此的关注与投入，让技术话题有了具体而生动的样子。',
+    sections: [
+      {
+        title: '以分享为起点，让 AI 更容易被理解',
+        text: '讲台上，分享者手持话筒，身后的屏幕呈现着“智变邯郸”的活动画面。技术交流的意义，首先在于让理解发生。当一个新概念被讲清楚，当不同的经验有机会被表达，陌生的技术便多了一个可以接近的入口。回望这个现场，我们珍视的正是这样的分享时刻：带着好奇走近 AI，在听取、思考与交流中，逐步形成自己的认识。',
+        image: {
+          src: '/media/yaojing-ai-summit-2026-speaker.jpg', width: 1590, height: 1060,
+          alt: '交流大会现场，一位分享者在讲台前手持话筒进行分享，背景屏幕展示“智变邯郸”字样',
+          caption: '现场分享 · 从交流开始，走近 AI 的更多可能',
+        },
+      },
+      {
+        title: '认真聆听，把新的思考写进笔记',
+        text: '另一张照片把视线带向台下。桌面上摆着纸笔与资料，与会者低头阅读、书写，留下专注的学习片段。会场中关于 AI 普及与数智赋能的标语，也传递着技术走向应用的期待。一场交流的收获，往往藏在这些安静的细节里：记下一个值得再了解的方向，整理一处尚不清晰的问题，再把新的思考带回自己的日常工作。',
+        image: {
+          src: '/media/yaojing-ai-summit-2026-audience.jpg', width: 1592, height: 1062,
+          alt: '交流大会听众席，与会者在铺有蓝色桌布的座位前阅读资料、认真做笔记',
+          caption: '聆听与记录 · 让每一次学习留下可以继续探索的线索',
+        },
+      },
+      {
+        title: '从一次相聚，走向持续的应用探索',
+        text: '从这次活动回望，曜境希望持续思考一个问题：怎样让对 AI 的兴趣，逐渐变成解决具体问题的能力？这需要从真实任务出发，理解使用者的需要，明确工具能够承担的环节，并为结果保留检查与改进的空间。一次小范围的尝试、一份清晰的过程记录、一轮基于反馈的调整，都可以成为向前的一步。我们期待把交流中获得的启发，沉淀为愿意继续学习、动手实践的动力。',
+      },
+      {
+        title: '共赴创新之约，让同行的连接继续',
+        text: '活动合影定格了大家站在一起的瞬间。横幅上的“共赴”，既记录着这一次相聚，也表达了面向未来的期待。感谢来到现场、认真聆听与参与交流的每一位朋友。曜境将这份影像留在社区，作为一段可以回看的共同记忆。愿我们带着对技术的好奇，也带着对真实需求的关注，在持续的学习与交流中，探索智能创新的更多可能。',
+      },
+    ],
+  },
   {
     id: 'yaojing-culture-wall', category: '曜境日常', readTime: '约 3 分钟',
     title: '聚力同行，共赴热爱｜走进曜境科技',
