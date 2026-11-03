@@ -23,10 +23,8 @@ html[data-motion="off"]{scroll-behavior:auto}html[data-motion="off"] *,html[data
 @media(prefers-reduced-motion:reduce){.reveal-target{opacity:1;translate:none}.art-scene,.product-card,.resource-card{transform:none}.hero-slide-tabs>button.active>i::after{transform:scaleX(1)}}
 @media(max-width:960px){.main-nav a::after{bottom:4px;right:85%}}
 
-/* Let the desktop banner use the available screen width. */
+/* Keep the desktop artwork aligned within the shared content container. */
 @media(min-width:1201px){
-  .interactive-hero .hero-inner,
-  .interactive-hero .hero-pagination{width:min(1760px,92%)}
   .interactive-hero .cloud-art{right:0}
 }
 @media(min-width:1600px){

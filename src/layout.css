@@ -1,0 +1,30 @@
+/* Shared page edges: approximately 160px per side at a 1920px viewport. */
+:root {
+  --site-content-width: min(1600px, 84%);
+  --site-inline-gutter: max(8%, calc((100% - 1600px) / 2));
+}
+
+.wrap,
+.ai-productivity-wrap,
+.interactive-hero .hero-inner,
+.interactive-hero .hero-pagination {
+  width: var(--site-content-width);
+  margin-inline: auto;
+}
+
+.site-header {
+  padding-inline: var(--site-inline-gutter);
+}
+
+@media (max-width: 1100px) {
+  .site-header .main-nav {
+    padding-inline: var(--site-inline-gutter);
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --site-content-width: calc(100% - 40px);
+    --site-inline-gutter: 20px;
+  }
+}

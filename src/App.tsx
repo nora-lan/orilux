@@ -18,6 +18,7 @@ import './ai-productivity.css'
 import './community.css'
 import './navigation.css'
 import './solution-diagram.css'
+import './layout.css'
 
 type Product = { name: string; english: string; category: string; description: string; features: string[]; icon: string; tag?: string }
 const products: Product[] = [
