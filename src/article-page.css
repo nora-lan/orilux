@@ -14,6 +14,10 @@
 .article-cover { margin: 0 0 30px; }
 .article-cover img { width: 100%; height: auto; display: block; border-radius: 5px; }
 .article-cover figcaption { margin-top: 12px; color: #91a0b5; font-size: 11px; line-height: 1.8; text-align: center; }
+.article-poster-link { display: block; padding: 20px; border: 1px solid #e8edf6; border-radius: 8px; background: linear-gradient(135deg, #f4f7fc, #eaf0fb); }
+.article-cover.is-poster img { width: auto; max-width: 100%; max-height: 720px; margin-inline: auto; box-shadow: 0 12px 30px #233b6114; }
+.article-poster-link:hover { border-color: #b7ccef; }
+.article-poster-hint { display: block; margin-top: 5px; color: #4c79c6; }
 .article-inline-photo { margin: 25px 0 34px; }
 .article-inline-photo img { display: block; width: 100%; height: auto; border-radius: 6px; }
 .article-inline-photo figcaption { margin-top: 12px; color: #8192ab; font-size: 11px; line-height: 1.8; text-align: center; }
@@ -55,6 +59,7 @@
   .article-page-meta { gap: 12px; font-size: 10px; }
   .article-columns { padding-top: 22px; }
   .article-body { padding: 20px; }
+  .article-poster-link { padding: 10px; }
   .article-introduction,.article-body-section p { font-size: 14px; line-height: 2; }
   .article-body-section h2 { font-size: 19px; }
   .article-body-section h2 span { margin-right: 8px; }

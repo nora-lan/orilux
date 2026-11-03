@@ -18,6 +18,7 @@ export default function ArticlePage() {
 
   if (!post) return <section className="article-not-found wrap" id="article-top"><p className="eyebrow">YAOJING COMMUNITY</p><h1>这篇文章暂未找到</h1><p>文章链接可能有误，返回社区发现更多内容。</p><a className="button" href="/community/">返回社区动态 <ArrowRight size={16} /></a></section>
   const related = communityPosts.filter(item => item.id !== post.id).slice(0, 2)
+  const coverImage = post.cover && <img src={post.cover.src} alt={post.cover.alt} width={post.cover.width ?? 2276} height={post.cover.height ?? 1280} />
   return <div className="article-page">
     <section className="article-page-header" id="article-top">
       <div className="wrap">
@@ -31,7 +32,7 @@ export default function ArticlePage() {
     <div className="article-columns wrap">
       <div className="article-primary">
         <article className="article-body" aria-label="文章正文">
-          {post.cover && <figure className="article-cover"><img src={post.cover.src} alt={post.cover.alt} width={post.cover.width ?? 2276} height={post.cover.height ?? 1280} /><figcaption>{post.cover.caption}</figcaption></figure>}
+          {post.cover && <figure className={`article-cover${post.cover.format === 'poster' ? ' is-poster' : ''}`}>{post.cover.format === 'poster' ? <a className="article-poster-link" href={post.cover.src} target="_blank" rel="noopener noreferrer" aria-label="查看完整海报（新标签页打开）">{coverImage}</a> : coverImage}<figcaption>{post.cover.caption}{post.cover.format === 'poster' && <span className="article-poster-hint">点击海报查看大图 ↗</span>}</figcaption></figure>}
           {post.introduction && <p className="article-introduction">{post.introduction}</p>}
           {post.sections.map((part, index) => <section className="article-body-section" id={`part-${index + 1}`} key={part.title}><h2><span>0{index + 1}</span>{part.title}</h2><p>{part.text}</p>{part.image && <figure className="article-inline-photo"><img src={part.image.src} alt={part.image.alt} width={part.image.width} height={part.image.height} loading="lazy" decoding="async" /><figcaption>{part.image.caption}</figcaption></figure>}</section>)}
           <div className="article-end"><span>感谢阅读，与曜境一起探索更多可能。</span><button className="article-save" aria-pressed={saved.includes(post.id)} onClick={() => toggleSaved(post.id)}>{saved.includes(post.id) ? '✓ 已收藏' : '＋ 收藏文章'}</button></div>

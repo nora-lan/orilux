@@ -206,6 +206,8 @@ html[data-motion="off"] .community-post-open:hover .community-read-link svg { tr
 .community-feature .community-photo-art,
 .community-feature:only-child>.community-photo-art { width: 100%; height: auto; min-height: 0; align-self: start; background: #e9e6df; }
 .community-photo-art img { display: block; width: 100%; height: auto; }
+.community-feature .community-photo-art.is-poster { display: grid; place-items: center; padding: 20px; background: linear-gradient(135deg, #edf3fd, #e2eaf7); }
+.community-photo-art.is-poster img { width: auto; max-width: 100%; height: 340px; object-fit: contain; }
 .community-detail-photo { margin: 0 0 25px; }
 .community-detail-photo img { display: block; width: 100%; height: auto; border-radius: 6px; }
 .community-detail-photo figcaption { color: #8a99ae; font-size: 10px; line-height: 1.8; margin-top: 9px; text-align: center; }
