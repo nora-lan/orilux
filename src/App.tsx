@@ -16,6 +16,7 @@ import './ai-productivity.css'
 import './community.css'
 import './navigation.css'
 import './solution-diagram.css'
+import './about-section.css'
 import './layout.css'
 
 type Product = { name: string; english: string; category: string; description: string; features: string[]; icon: string; tag?: string }
@@ -123,8 +124,23 @@ function App() {
       <section className="section products-section wrap" id="products"><div className="section-heading"><div><p className="eyebrow">PRODUCTS & SERVICES</p><h2>为创新，提供每一份力量。</h2><p>从基础设施到智能应用，让技术成为业务向前的动力。</p></div><button className="text-link" onClick={() => { setQuery(''); setModal('search') }}>发现全部产品 <ArrowRight size={17} /></button></div><div className="product-tabs" role="group" aria-label="产品分类">{categories.map(item => <button key={item} aria-pressed={category === item} className={category === item ? 'active' : ''} onClick={() => setCategory(item)}>{item}</button>)}</div><div className="product-grid">{products.filter(item => category === '精选产品' || item.category === category).map(item => <button className="product-card" key={category + item.name} onClick={() => setModal(item)}><div className="product-icon"><Symbol kind={item.icon} />{item.tag && <span>{item.tag}</span>}</div><h3>{item.name}</h3><span className="product-english">{item.english}</span><p>{item.description}</p><span className="product-more">了解产品 <ArrowUpRight size={16} /></span></button>)}</div><p className="catalog-note">围绕企业需求设计的产品能力展示，可进一步配置为您的实际产品与服务。</p></section>
       <AIProductivity onConsult={contact} motionEnabled={motionEnabled} /><section className="solutions-section" id="solutions"><div className="wrap"><div className="section-heading"><div><p className="eyebrow">SOLUTIONS FOR EVERY AMBITION</p><h2>深入业务场景，让价值真正落地。</h2><p>理解不同行业的挑战，探索更适合你的数字化路径。</p></div></div><div className="solution-shell"><div className="solution-tabs" role="group" aria-label="行业解决方案">{solutions.map((item, index) => <button key={item.name} className={solution === index ? 'active' : ''} aria-pressed={solution === index} onClick={() => setSolution(index)}><span>0{index + 1}</span>{item.name}<ArrowUpRight size={17} /></button>)}</div><div className="solution-content" key={activeSolution.name}><span className="pill">{activeSolution.name}解决方案</span><h3>{activeSolution.title}</h3><p>{activeSolution.desc}</p><ul>{activeSolution.points.map(point => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="text-link" onClick={contact}>规划我的业务方案 <ArrowRight size={17} /></button></div><SolutionDiagram key={activeSolution.name + 'diagram'} solution={activeSolution} /></div></div></section>
       <section className="section resources-section" id="resources"><div className="wrap"><div className="section-heading"><div><p className="eyebrow">IDEAS INTO ACTION</p><h2>前沿视野，与实践同行。</h2></div><a className="text-link" href="/#about">认识曜境 <ArrowRight size={17} /></a></div><div className="resource-grid">{articles.map((article, index) => <button className="resource-card" key={article.title} onClick={() => setModal(index)}><div className={`resource-art ${article.color}`}><span className="article-index">INSIGHT / 0{index + 1}</span><div className={`article-shape shape-${index}`}><Symbol kind={['spark', 'cube', 'data'][index]} size={64} /></div><span className="art-word">{['Intelligence.', 'Build better.', 'Data matters.'][index]}</span></div><div className="resource-copy"><span>{article.tag}<i />阅读约 2 分钟</span><h3>{article.title}</h3><p>{article.desc}</p><span className="read-more">阅读全文 <ArrowUpRight size={16} /></span></div></button>)}</div></div></section>
-      <section className="about-section wrap" id="about"><div><p className="eyebrow">THIS IS YAOJING</p><h2>技术的意义，<br />是让更多可能成为现实。</h2></div><div><p>曜境关注云、数据与智能技术的连接，探索技术如何融入真实业务。我们相信，好的技术应该易于理解、易于使用，并在每一次应用中创造价值。</p><div className="values"><span>开放连接</span><span>持续创新</span><span>价值共创</span></div></div></section>
-      <section className="cta-section"><div className="wrap"><div><span>YOUR NEXT STARTS HERE</span><h2>你的下一次突破，从这里开始。</h2><p>聊聊你的想法，一起探索业务的更多可能。</p></div><button className="button" onClick={contact}>与我们聊聊 <ArrowUpRight size={18} /></button></div></section>
+      <section className="about-section" id="about" aria-labelledby="about-heading">
+        <div className="about-inner wrap">
+          <div className="about-intro">
+            <p className="eyebrow">THIS IS YAOJING</p>
+            <h2 id="about-heading">技术的意义，<br />是让更多可能<br className="about-title-break" />成为现实。</h2>
+            <div className="about-values"><span>开放连接</span><span>持续创新</span><span>价值共创</span></div>
+          </div>
+          <div className="about-content">
+            <p className="about-description">曜境关注云、数据与智能技术的连接，探索技术如何融入真实业务。我们相信，好的技术应该易于理解、易于使用，并在每一次应用中创造价值。</p>
+            <div className="about-invitation">
+              <h3>你的下一次突破，从这里开始。</h3>
+              <p>聊聊你的想法，一起探索业务的更多可能。</p>
+              <button className="button" onClick={contact}>与我们聊聊 <ArrowUpRight size={18} /></button>
+            </div>
+          </div>
+        </div>
+      </section>
       </>}
     </main>
     <footer><div className="footer-main wrap"><div className="footer-brand"><a href="/#home" aria-label="曜境首页"><Brand /></a><p>以智能，开启无限可能。</p><span>BUILD WHAT’S NEXT.</span></div><div><strong>产品与服务</strong>{products.slice(0, 3).map(item => <button onClick={() => setModal(item)} key={item.name}>{item.name}</button>)}</div><div><strong>解决方案</strong>{solutions.slice(0, 3).map((item, index) => <a href={isCommunityPage || isAccountPage ? `/?solution=${index}#solutions` : '/#solutions'} key={item.name} onClick={() => setSolution(index)}>{item.name}</a>)}</div><div><strong>探索更多</strong><a href="/#ai-productivity">AI 生产力</a><a href="/#resources">资源中心</a><a href="/#about">关于曜境</a><a href="/community/">社区动态</a></div><div><strong>连接曜境</strong><p>让每一个想法，都有向前的力量。</p><button className="text-link" onClick={contact}>业务咨询 <ArrowUpRight size={15} /></button></div></div><div className="footer-bottom wrap"><span>© 2026 曜境 YAOJING · 企业科技官网概念展示</span><span>中国大陆 · 简体中文</span><a href={topHref}>回到顶部 ↑</a></div></footer>
