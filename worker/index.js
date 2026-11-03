@@ -93,6 +93,19 @@ async function listComments(request, env, ownerHash) {
   return { comments, total: results[1].results[0].total, nextCursor: rows.length > pageSize ? `${last.created_at}:${last.id}` : null }
 }
 
+async function listOwnComments(request, env, ownerHash) {
+  const cursor = cursorValue(new URL(request.url).searchParams.get('cursor'))
+  // Ownership always comes from the HttpOnly session, never a client-supplied ID.
+  const query = cursor
+    ? env.DB.prepare('SELECT * FROM community_comments WHERE owner_hash = ? AND (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT ?').bind(ownerHash, cursor.time, cursor.time, cursor.id, pageSize + 1)
+    : env.DB.prepare('SELECT * FROM community_comments WHERE owner_hash = ? ORDER BY created_at DESC, id DESC LIMIT ?').bind(ownerHash, pageSize + 1)
+  const results = await env.DB.batch([query, env.DB.prepare('SELECT COUNT(*) AS total FROM community_comments WHERE owner_hash = ?').bind(ownerHash)])
+  const rows = results[0].results
+  const comments = rows.slice(0, pageSize).map(row => commentView(row, ownerHash))
+  const last = rows[pageSize - 1]
+  return { comments, total: results[1].results[0].total, nextCursor: rows.length > pageSize ? `${last.created_at}:${last.id}` : null }
+}
+
 async function createComment(request, env, ownerHash) {
   assertSameOrigin(request)
   const input = await readJson(request)
@@ -143,20 +156,22 @@ export default {
     const url = new URL(request.url)
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request)
     const isCollection = url.pathname === '/api/comments'
-    const isItem = /^\/api\/comments\/[^/]+$/.test(url.pathname)
-    if (!isCollection && !isItem) return json({ error: '未找到接口。' }, 404)
+    const isOwnCollection = url.pathname === '/api/comments/mine'
+    const isItem = !isOwnCollection && /^\/api\/comments\/[^/]+$/.test(url.pathname)
+    if (!isCollection && !isOwnCollection && !isItem) return json({ error: '未找到接口。' }, 404)
     let current
     try {
       if (!env.DB) throw new HttpError(503, '评论服务暂不可用，请稍后重试。')
       current = await session(request)
       const headers = current.cookie ? { 'Set-Cookie': current.cookie } : {}
+      if (isOwnCollection && request.method === 'GET') return json(await listOwnComments(request, env, current.ownerHash), 200, headers)
       if (isCollection && request.method === 'GET') return json(await listComments(request, env, current.ownerHash), 200, headers)
       if (isCollection && request.method === 'POST') {
         const result = await createComment(request, env, current.ownerHash)
         return json({ comment: result.comment }, result.status, headers)
       }
       if (isItem && request.method === 'DELETE') return json(await deleteComment(request, env, current.ownerHash, url.pathname.split('/').pop()), 200, headers)
-      return json({ error: '不支持此请求方式。' }, 405, { Allow: isCollection ? 'GET, POST' : 'DELETE' })
+      return json({ error: '不支持此请求方式。' }, 405, { Allow: isOwnCollection ? 'GET' : isCollection ? 'GET, POST' : 'DELETE', ...headers })
     } catch (error) {
       if (error instanceof HttpError) return json({ error: error.message }, error.status, { ...error.headers, ...(current?.cookie ? { 'Set-Cookie': current.cookie } : {}) })
       console.error('Comment service failure:', error instanceof Error ? error.message : 'unknown error')

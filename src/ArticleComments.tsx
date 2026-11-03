@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import './article-comments.css'
+import { useUserProfile } from './useUserProfile'
 
 type CommentItem = {
   id: string
@@ -48,13 +49,14 @@ function requestError(error: unknown, fallback: string) {
 }
 
 export default function ArticleComments({ articleId }: { articleId: string }) {
+  const { profile } = useUserProfile()
   const [comments, setComments] = useState<CommentItem[]>([])
   const [total, setTotal] = useState<number | null>(null)
   const [nextCursor, setNextCursor] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
   const [listError, setListError] = useState('')
-  const [nickname, setNickname] = useState('')
+  const [nickname, setNickname] = useState(profile.nickname)
   const [body, setBody] = useState('')
   const [website, setWebsite] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -68,6 +70,13 @@ export default function ArticleComments({ articleId }: { articleId: string }) {
   const pageLock = useRef(false)
   const listHeadingRef = useRef<HTMLHeadingElement>(null)
   const pendingRequest = useRef<{ fingerprint: string; id: string } | null>(null)
+  const previousProfileName = useRef(profile.nickname)
+
+  useEffect(() => {
+    const previous = previousProfileName.current
+    setNickname(current => current === previous ? profile.nickname : current)
+    previousProfileName.current = profile.nickname
+  }, [profile.nickname])
 
   const loadComments = useCallback(async (cursor: string | null, signal?: AbortSignal) => {
     if (pageLock.current && !signal) return

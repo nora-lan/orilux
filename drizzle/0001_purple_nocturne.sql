@@ -1,0 +1,1 @@
+CREATE INDEX `comments_owner_created` ON `community_comments` (`owner_hash`,`created_at`,`id`);

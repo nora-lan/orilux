@@ -7,7 +7,10 @@ export const comments = sqliteTable('community_comments', {
   nickname: text('nickname').notNull(),
   body: text('body').notNull(),
   createdAt: integer('created_at').notNull(),
-}, table => [index('comments_article_created').on(table.articleId, table.createdAt, table.id)])
+}, table => [
+  index('comments_article_created').on(table.articleId, table.createdAt, table.id),
+  index('comments_owner_created').on(table.ownerHash, table.createdAt, table.id),
+])
 
 export const submissions = sqliteTable('comment_submissions', {
   id: text('id').primaryKey(),
