@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local Worker and database state
+.wrangler/
+.sites-runtime/
+.dev.vars*
+.env*

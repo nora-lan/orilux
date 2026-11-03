@@ -6,6 +6,7 @@ import BrandLogoSvg from './BrandLogoSvg'
 import { usePageMotion } from './usePageMotion'
 import AIProductivity from './AIProductivity'
 import CommunitySection from './CommunitySection'
+import ArticlePage from './ArticlePage'
 import './App.css'
 import './motion.css'
 import './brand-monogram.css'
@@ -43,7 +44,8 @@ function Symbol({ kind, size = 27 }: { kind: string; size?: number }) {
 function Brand() { return <span className="brand"><BrandLogoSvg compact /><strong>曜境<span>YAOJING</span></strong></span> }
 function App() {
   const isCommunityPage = /^\/community(?:\/|$)/.test(window.location.pathname)
-  const topHref = isCommunityPage ? '#community' : '#home'
+  const isArticlePage = /^\/community\/article(?:\/|$)/.test(window.location.pathname)
+  const topHref = isArticlePage ? '#article-top' : isCommunityPage ? '#community' : '#home'
   const { enabled: motionEnabled, systemReduced, toggleMotion, activeSection, progressRef } = usePageMotion()
   const [category, setCategory] = useState('精选产品')
   const [solution, setSolution] = useState(() => {
@@ -91,7 +93,7 @@ function App() {
   return <>
     <div ref={progressRef} className="reading-progress" aria-hidden="true" /><header className="site-header"><a href="/#home" aria-label="曜境首页"><Brand /></a><nav aria-label="主导航" className={menuOpen ? 'main-nav is-open' : 'main-nav'}>{[['产品与服务', '#products'], ['AI 生产力', '#ai-productivity'], ['解决方案', '#solutions'], ['资源中心', '#resources'], ['关于曜境', '#about'], ['社区动态', '/community/']].map(([label, href]) => <a key={href} href={href.startsWith('#') ? `/${href}` : href} className={(isCommunityPage ? href === '/community/' : href === `#${activeSection}`) ? 'nav-active' : ''} aria-current={isCommunityPage ? (href === '/community/' ? 'page' : undefined) : (href === `#${activeSection}` ? 'location' : undefined)} onClick={() => setMenuOpen(false)}>{label}{label === '产品与服务' && <span className="chevron">⌄</span>}</a>)}</nav><div className="header-actions"><button className="search-button" aria-label="搜索产品" onClick={() => { setQuery(''); setModal('search') }}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg></button><a className="header-link" href="/#resources">开发者资源</a><button className="button small" onClick={contact}>联系我们 <ArrowUpRight size={14} /></button><button className="mobile-menu" aria-label="展开导航" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={22} /> : <Menu size={22} />}</button></div></header>
     <main className={isCommunityPage ? 'community-page' : undefined}>
-      {isCommunityPage ? <CommunitySection /> : <>
+      {isArticlePage ? <ArticlePage /> : isCommunityPage ? <CommunitySection /> : <>
       <HeroExperience motionEnabled={motionEnabled} onContact={contact} onExplore={exploreCategory} />
       <div className="quick-links wrap">{[{ icon: 'spark', title: '让 AI 走进业务', desc: '从模型能力到场景应用', target: '#products' }, { icon: 'cube', title: '构建灵活的云底座', desc: '计算、容器与应用服务', target: '#products' }, { icon: 'data', title: '用数据发现新价值', desc: '连接洞察与每一次决策', target: '#solutions' }, { icon: 'network', title: '与创新者一起向前', desc: '探索技术与实践指南', target: '#resources' }].map(item => <a href={item.target} key={item.title}><span className="quick-icon"><Symbol kind={item.icon} size={25} /></span><div><h3>{item.title}</h3><p>{item.desc}</p></div><ArrowUpRight size={16} /></a>)}</div>
       <section className="section products-section wrap" id="products"><div className="section-heading"><div><p className="eyebrow">PRODUCTS & SERVICES</p><h2>为创新，提供每一份力量。</h2><p>从基础设施到智能应用，让技术成为业务向前的动力。</p></div><button className="text-link" onClick={() => { setQuery(''); setModal('search') }}>发现全部产品 <ArrowRight size={17} /></button></div><div className="product-tabs" role="group" aria-label="产品分类">{categories.map(item => <button key={item} aria-pressed={category === item} className={category === item ? 'active' : ''} onClick={() => setCategory(item)}>{item}</button>)}</div><div className="product-grid">{products.filter(item => category === '精选产品' || item.category === category).map(item => <button className="product-card" key={category + item.name} onClick={() => setModal(item)}><div className="product-icon"><Symbol kind={item.icon} />{item.tag && <span>{item.tag}</span>}</div><h3>{item.name}</h3><span className="product-english">{item.english}</span><p>{item.description}</p><span className="product-more">了解产品 <ArrowUpRight size={16} /></span></button>)}</div><p className="catalog-note">围绕企业需求设计的产品能力展示，可进一步配置为您的实际产品与服务。</p></section>
