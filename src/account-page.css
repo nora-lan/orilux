@@ -33,7 +33,7 @@
 .account-sidebar-note a { display: inline-flex; gap: 20px; align-items: center; color: #5c85c9; font-size: 11px; margin-top: 18px; }
 .account-browser-note { padding: 15px 8px; color: #99a7bc; font-size: 10px; line-height: 1.9; }
 .account-main { min-width: 0; background: white; border: 1px solid #e3eaf5; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 22px #243f6610; }
-.account-tabs { display: flex; gap: 28px; padding: 0 30px; border-bottom: 1px solid #eaf0f7; background: #fff; }
+.account-tabs { display: flex; gap: 28px; padding: 0 30px; border-bottom: 1px solid #eaf0f7; background: #fff; overflow-x: auto; }
 .account-tabs button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 22px 2px 20px; border-bottom: 2px solid transparent; font-size: 13px; color: #7f90ab; white-space: nowrap; }
 .account-tabs button:hover { color: var(--blue); }
 .account-tabs .is-active { color: #2864ff; border-bottom-color: #2864ff; font-weight: 500; }
@@ -124,6 +124,10 @@
 .account-form-error { color: #b15c73; font-size: 11px; line-height: 1.8; }
 .account-page button:disabled { opacity: .5; }
 .account-page button:disabled:hover { transform: none; box-shadow: none; }
+.account-statistics.has-articles { grid-template-columns: repeat(3,minmax(0,1fr)); }
+@media(min-width:601px) and (max-width:850px) {
+  .account-profile-card:has(.has-articles) { grid-template-columns: minmax(0,1fr) 210px; }
+}
 @media(max-width:1100px) {
   .account-layout { grid-template-columns: 235px minmax(0,1fr); gap: 20px; }
   .account-tabs { gap: 20px; padding-inline: 23px; }
@@ -174,8 +178,8 @@
   .account-statistics span { font-size: 10px; }
   .account-browser-note { font-size: 9px; }
   .account-layout { gap: 19px; }
-  .account-tabs { justify-content: space-between; gap: 10px; padding-inline: 18px; }
-  .account-tabs button { font-size: 11px; gap: 5px; padding-block: 18px 16px; }
+  .account-tabs { justify-content: space-between; gap: 6px; padding-inline: 12px; }
+  .account-tabs button { font-size: 11px; gap: 4px; padding-block: 18px 16px; flex-shrink: 0; }
   .account-tabs button>svg { width: 15px; height: 15px; }
   .account-tabs button>span { display: none; }
   .account-panel { padding: 23px 18px; min-height: 410px; }

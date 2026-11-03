@@ -6,12 +6,15 @@ import { useCommunitySaved } from './useCommunitySaved'
 import { avatarOptions, useUserProfile } from './useUserProfile'
 import type { UserProfile } from './useUserProfile'
 import UserAvatar from './UserAvatar'
+import MyArticles from './MyArticles'
+import { useMyArticles } from './useMyArticles'
 import './account-page.css'
 
-type Tab = 'saved' | 'comments' | 'profile'
+type Tab = 'articles' | 'saved' | 'comments' | 'profile'
 type OwnComment = { id: string; articleId: string; nickname: string; body: string; createdAt: string | number; canDelete: boolean }
 type CommentResult = { comments: OwnComment[]; total: number; nextCursor: string | null }
 const tabs: { id: Tab; title: string; description: string }[] = [
+  { id: 'articles', title: '我的文章', description: '写下你的发现与思考，让每一个好想法慢慢成篇。' },
   { id: 'saved', title: '我的收藏', description: '把感兴趣的内容留在这里，随时回来继续阅读。' },
   { id: 'comments', title: '我的评论', description: '回看自己的想法，让每一次交流都有迹可循。' },
   { id: 'profile', title: '个人资料', description: '选一个喜欢的头像，让大家更好地认识你。' },
@@ -19,11 +22,11 @@ const tabs: { id: Tab; title: string; description: string }[] = [
 
 function currentTab(): Tab {
   const hash = window.location.hash.slice(1)
-  return hash === 'comments' || hash === 'profile' ? hash : 'saved'
+  return hash === 'saved' || hash === 'comments' || hash === 'profile' ? hash : 'articles'
 }
 
 function AccountIcon({ name, size = 20 }: { name: Tab; size?: number }) {
-  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{name === 'saved' ? <path d="M6 4h12v17l-6-4-6 4V4Z" /> : name === 'comments' ? <path d="M4 4h16v12H9l-5 4V4Zm4 5h8m-8 3h5" /> : <><circle cx="12" cy="8" r="3.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" /></>}</svg>
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{name === 'articles' ? <><path d="M6 3h8l4 4v14H6V3Z" /><path d="M14 3v5h4M9 12h6m-6 4h6" /></> : name === 'saved' ? <path d="M6 4h12v17l-6-4-6 4V4Z" /> : name === 'comments' ? <path d="M4 4h16v12H9l-5 4V4Zm4 5h8m-8 3h5" /> : <><circle cx="12" cy="8" r="3.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" /></>}</svg>
 }
 
 function formatDate(value: string | number) {
@@ -45,6 +48,7 @@ async function readCommentResponse<T>(response: Response): Promise<T> {
 export default function AccountPage() {
   const { profile, saveProfile, storageNotice: profileStorageNotice } = useUserProfile()
   const { saved, toggleSaved, storageNotice } = useCommunitySaved()
+  const myArticles = useMyArticles()
   const [tab, setTab] = useState<Tab>(currentTab)
   const [draft, setDraft] = useState<UserProfile>(profile)
   const [profileNotice, setProfileNotice] = useState('')
@@ -158,15 +162,16 @@ export default function AccountPage() {
         <section className="account-profile-card">
           <div className="account-profile-banner" aria-hidden="true"><span /><span /><span /></div>
           <div className="account-profile-summary"><UserAvatar profile={profile} size={80} className="account-profile-avatar" /><span className="account-profile-label">YAOJING COMMUNITY</span><h2>{profile.nickname}</h2><p>{profile.bio || '保持好奇，让每一个想法都有新的可能。'}</p><button className="account-edit-link" onClick={() => selectTab('profile')}>编辑个人资料 <ArrowUpRight size={14} /></button></div>
-          <div className="account-statistics"><button onClick={() => selectTab('saved')} aria-label={`查看我的 ${saved.length} 篇收藏`}><strong>{saved.length.toString().padStart(2, '0')}</strong><span>我的收藏</span></button><button onClick={() => selectTab('comments')} aria-label="查看我的评论"><strong>{total === null ? '—' : total.toString().padStart(2, '0')}</strong><span>我的评论</span></button></div>
+          <div className="account-statistics has-articles"><button onClick={() => selectTab('articles')} aria-label={`查看我的 ${myArticles.articles.length} 篇文章`}><strong>{myArticles.articles.length.toString().padStart(2, '0')}</strong><span>我的文章</span></button><button onClick={() => selectTab('saved')} aria-label={`查看我的 ${saved.length} 篇收藏`}><strong>{saved.length.toString().padStart(2, '0')}</strong><span>我的收藏</span></button><button onClick={() => selectTab('comments')} aria-label="查看我的评论"><strong>{total === null ? '—' : total.toString().padStart(2, '0')}</strong><span>我的评论</span></button></div>
         </section>
         <div className="account-sidebar-note"><span className="account-note-symbol" aria-hidden="true">✦</span><h3>每一次交流，都有价值。</h3><p>读一篇文章，记录一个想法。让灵感在分享中生长。</p><a href="/community/">去社区看看 <ArrowRight size={15} /></a></div>
-        <p className="account-browser-note">资料与收藏保存在当前浏览器。评论通过当前浏览器识别归属。</p>
+        <p className="account-browser-note">资料、文章草稿与收藏保存在当前浏览器。评论通过当前浏览器识别归属。</p>
       </aside>
       <section className="account-main" aria-label="个人中心内容">
-        <div className="account-tabs" role="group" aria-label="个人中心栏目">{tabs.map(item => <button key={item.id} type="button" aria-pressed={tab === item.id} className={tab === item.id ? 'is-active' : ''} onClick={() => selectTab(item.id)}><AccountIcon name={item.id} size={18} />{item.title}{item.id === 'saved' && <span>{saved.length}</span>}{item.id === 'comments' && total !== null && <span>{total}</span>}</button>)}</div>
+        <div className="account-tabs" role="group" aria-label="个人中心栏目">{tabs.map(item => <button key={item.id} type="button" aria-pressed={tab === item.id} className={tab === item.id ? 'is-active' : ''} onClick={() => selectTab(item.id)}><AccountIcon name={item.id} size={18} />{item.title}{item.id === 'articles' && <span>{myArticles.articles.length}</span>}{item.id === 'saved' && <span>{saved.length}</span>}{item.id === 'comments' && total !== null && <span>{total}</span>}</button>)}</div>
         <div className="account-panel">
           <div className="account-panel-heading"><div><h2>{activeTab.title}</h2><p>{activeTab.description}</p></div>{tab === 'comments' && <button className="account-refresh" onClick={() => void loadComments(null)} disabled={loading || loadingMore || removingId !== null}>刷新</button>}{tab === 'saved' && <span className="account-panel-total">{saved.length} 篇文章</span>}</div>
+          <div hidden={tab !== 'articles'}><MyArticles {...myArticles} authorName={profile.nickname} /></div>
           {tab === 'saved' && <>
             {savedPosts.length > 0 ? <ul className="account-saved-list">{savedPosts.map(post => <li key={post.id}><a className={`account-saved-cover ${!post.cover ? 'is-placeholder' : ''}`} href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer" aria-label={`阅读：${post.title}`}>{post.cover ? <img src={post.cover.src} alt="" loading="lazy" /> : <><AccountIcon name="saved" size={31} /><span>YAOJING INSIGHTS</span></>}</a><div className="account-saved-copy"><span className="account-category">{post.category}<i />{post.readTime}</span><a href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer"><h3>{post.title}</h3></a><p>{post.summary}</p><div className="account-saved-actions"><a href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer">继续阅读 <ArrowUpRight size={14} /></a><button onClick={() => toggleSaved(post.id)} aria-label={`取消收藏：${post.title}`}>取消收藏</button></div></div></li>)}</ul> : <div className="account-empty"><div className="account-empty-art"><AccountIcon name="saved" size={36} /><span aria-hidden="true">+</span></div><h3>你的灵感书架，等你开启</h3><p>遇见喜欢的文章，点击「收藏文章」，<br />下次就能在这里轻松找到。</p><a className="button" href="/community/">发现值得收藏的内容 <ArrowRight size={16} /></a></div>}
             <p className="account-storage-note">{storageNotice}</p>
