@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, ArrowUpRight, X } from './icons'
 
-const categories = ['全部动态', '技术分享', '产品更新', '社区活动'] as const
+const categories = ['全部动态', '曜境日常', '技术分享', '产品更新', '社区活动'] as const
 type Category = typeof categories[number]
 type CommunityPost = {
   id: string
@@ -9,10 +9,28 @@ type CommunityPost = {
   title: string
   summary: string
   readTime: string
+  author?: string
+  publishedAt?: string
+  cover?: { src: string; alt: string; caption: string }
+  introduction?: string
   sections: { title: string; text: string }[]
 }
 
 const posts: CommunityPost[] = [
+  {
+    id: 'yaojing-culture-wall', category: '曜境日常', readTime: '约 3 分钟',
+    title: '聚力同行，共赴热爱｜走进曜境科技',
+    summary: '从一面文化墙出发，看见曜境对同行、成长与技术价值的理解。让热爱融入日常，让每一个想法都有向前的力量。',
+    author: '曜境科技', publishedAt: '2026-11-03',
+    cover: { src: '/media/yaojing-culture-wall.jpg', alt: '曜境科技木质文化墙，展示聚力同行、共赴热爱与 AI 赋能企业增长的文字，点缀照片、书籍和绿植', caption: '曜境科技文化墙 · 聚力同行，共赴热爱' },
+    introduction: '认识一家科技企业，可以从它关注的问题开始，也可以从一面墙开始。木色的洞洞板上，照片、书籍、绿植与小摆件错落相伴；“曜境科技”几个字旁，写着“AI 赋能企业增长 · 用技术创造价值”。理性的技术表达与温暖的生活细节，在这里出现在同一个画面里。',
+    sections: [
+      { title: '聚力同行，让不同的想法彼此连接', text: '“聚力同行，共赴热爱”，是这面墙上醒目的表达。同行意味着愿意听见彼此的想法，也愿意把自己的思考讲清楚。面对一个新问题，有人先关注使用体验，有人追问实现路径，也有人提醒需要验证的细节。不同视角的相遇，让讨论更接近完整的问题。我们期待这样的连接：把各自擅长的事情放在一起，让一个人的灵感，逐渐成为能够共同推进的方向。' },
+      { title: '专注成长，把探索放进每一天', text: '墙上的“Focus on growth”，为成长留下了一个简洁的注脚。成长可以很具体：读懂一个陌生概念，记录一次尝试的结果，或把一个复杂问题解释得更清楚。陈列的书籍、照片与绿植，也让这个关于技术的空间多了几分日常感。我们希望保留对新事物的好奇，也给思考和复盘留出时间。把小小的发现认真记录下来，再带着新的问题继续尝试，进步便有了可以回望的痕迹。' },
+      { title: '用技术创造价值，从真实需求出发', text: '“AI 赋能企业增长 · 用技术创造价值”表达了曜境对技术应用的期待。让这种期待走向实践，需要先理解具体任务：信息从哪里来，哪一步让人反复等待，怎样的结果才真正有帮助。对于一项 AI 应用，我们更愿意从这些问题出发，明确适用场景，再通过小范围的尝试检验效果。让工具易于理解、让过程可以检查、让结果能够被使用，是值得持续打磨的方向。' },
+      { title: '共赴热爱，让交流继续发生', text: '文化墙可以被看见，理念则需要在一次次选择中被实践。这些文字也提醒我们，保持热爱既需要探索的勇气，也需要把细节做好的耐心。曜境社区希望成为交流的起点：从一个具体问题、一份实践记录，或一个尚未成熟的想法开始，让经验有机会被理解，让灵感有机会得到回应。聚力同行，共赴热爱。愿我们在不断学习与尝试中，让技术更贴近需求，让每一次认真投入都留下价值。' },
+    ],
+  },
   {
     id: 'idea-to-prototype', category: '技术分享', readTime: '约 3 分钟',
     title: '把第一个 AI 想法，变成可验证的原型',
@@ -113,11 +131,11 @@ export default function CommunitySection() {
   }
 
   function postCard(post: CommunityPost, featured = false) {
-    return <article className={featured ? 'community-feature' : 'community-feed-card'} key={post.id}>
-      {featured && <div className="community-feature-art" aria-hidden="true"><div className="community-art-grid" /><div className="community-art-orbit" /><span className="community-art-mark">{'{ YJ }'}</span><span className="community-art-chip chip-idea">01 / IDEA</span><span className="community-art-chip chip-build">02 / BUILD</span><span className="community-art-chip chip-share">03 / SHARE</span></div>}
-      <div className="community-post-meta"><span className="community-category">{post.category}</span><span className="community-readtime">{post.readTime}</span></div>
+    return <article className={featured ? `community-feature${post.cover ? ' has-cover' : ''}` : 'community-feed-card'} key={post.id}>
+      {featured && (post.cover ? <div className="community-feature-art community-photo-art"><img src={post.cover.src} alt={post.cover.alt} width="2276" height="1280" /></div> : <div className="community-feature-art" aria-hidden="true"><div className="community-art-grid" /><div className="community-art-orbit" /><span className="community-art-mark">{'{ YJ }'}</span><span className="community-art-chip chip-idea">01 / IDEA</span><span className="community-art-chip chip-build">02 / BUILD</span><span className="community-art-chip chip-share">03 / SHARE</span></div>)}
+      <div className="community-post-meta"><span className="community-category">{post.category}</span><span className="community-readtime">{post.readTime}</span>{post.publishedAt && <time className="community-date" dateTime={post.publishedAt}>{post.publishedAt.replaceAll('-', '.')}</time>}</div>
       <button className="community-post-open" onClick={() => setSelected(post)} aria-label={`阅读：${post.title}`}><h3>{post.title}</h3><p>{post.summary}</p><span className="community-read-link">阅读全文 <ArrowUpRight size={15} /></span></button>
-      <div className="community-post-footer"><span className="community-author"><span aria-hidden="true">Y</span>曜境社区 · 内容示例</span>{saveButton(post)}</div>
+      <div className="community-post-footer"><span className="community-author"><span aria-hidden="true">Y</span>{post.author || '曜境社区 · 内容示例'}</span>{saveButton(post)}</div>
     </article>
   }
 
@@ -128,12 +146,12 @@ export default function CommunitySection() {
       <div className="community-toolbar"><div className="community-filters" role="group" aria-label="社区动态分类">{categories.map(item => <button key={item} ref={item === '全部动态' ? allFilterRef : undefined} aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}</div><button className="community-saved-filter" ref={savedFilterRef} aria-pressed={savedOnly} onClick={() => setSavedOnly(value => !value)}><Bookmark filled={savedOnly} />我的收藏 <span>{saved.length}</span></button></div>
       <p className="community-result-note" role="status">{savedOnly ? '已收藏' : category} · {filtered.length} 条动态</p>
       {filtered.length ? <div className="community-layout">{postCard(filtered[0], true)}{filtered.length > 1 && <div className="community-feed">{filtered.slice(1).map(post => postCard(post))}</div>}</div> : <div className="community-empty"><Bookmark filled={false} /><h3>{savedOnly ? '这里还没有收藏的动态' : '暂时没有相关动态'}</h3><p>发现感兴趣的内容时，点击收藏，方便下次继续阅读。</p><button onClick={browseAll}>浏览全部动态 <ArrowRight size={16} /></button></div>}
-      <p className="community-note">当前为社区内容示例。<span role="status">{storageNotice}</span></p>
+      <p className="community-note">部分动态为内容示例，已在作者信息处标注。<span role="status">{storageNotice}</span></p>
     </div>
     {selected && <dialog ref={dialogRef} className="dialog community-dialog" aria-labelledby="community-detail-title" onCancel={() => setSelected(null)} onClick={event => {
       if (event.target !== event.currentTarget) return
       const rect = event.currentTarget.getBoundingClientRect()
       if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) setSelected(null)
-    }}><button className="dialog-close" aria-label="关闭社区动态" onClick={() => setSelected(null)}><X size={22} /></button><p className="eyebrow">YAOJING COMMUNITY / {selected.category}</p><h2 id="community-detail-title">{selected.title}</h2><div className="community-detail-meta"><span>曜境社区 · 内容示例</span><span>{selected.readTime}</span></div><p className="community-detail-lead">{selected.summary}</p>{selected.sections.map((part, index) => <div className="community-detail-section" key={part.title}><h3><span>0{index + 1}</span>{part.title}</h3><p>{part.text}</p></div>)}<div className="community-detail-footer">{saveButton(selected)}<span>{storageNotice}</span></div></dialog>}
+    }}><button className="dialog-close" aria-label="关闭社区动态" onClick={() => setSelected(null)}><X size={22} /></button><p className="eyebrow">YAOJING COMMUNITY / {selected.category}</p><h2 id="community-detail-title">{selected.title}</h2><div className="community-detail-meta"><span>{selected.author || '曜境社区 · 内容示例'}</span><span>{selected.readTime}</span>{selected.publishedAt && <time dateTime={selected.publishedAt}>发布于 {selected.publishedAt.replaceAll('-', '.')}</time>}</div><p className="community-detail-lead">{selected.summary}</p>{selected.cover && <figure className="community-detail-photo"><img src={selected.cover.src} alt={selected.cover.alt} width="2276" height="1280" /><figcaption>{selected.cover.caption}</figcaption></figure>}{selected.introduction && <p className="community-detail-intro">{selected.introduction}</p>}{selected.sections.map((part, index) => <div className="community-detail-section" key={part.title}><h3><span>0{index + 1}</span>{part.title}</h3><p>{part.text}</p></div>)}<div className="community-detail-footer">{saveButton(selected)}<span>{storageNotice}</span></div></dialog>}
   </section>
 }

@@ -67,6 +67,7 @@
 .community-feature>.community-post-meta { margin: 25px 27px 13px; }
 .community-category { color: #5680cc; background: #edf3ff; border-radius: 4px; padding: 3px 7px; }
 .community-readtime { color: #9aa6b9; }
+.community-date { color: #8d9cb3; }
 .community-post-open { display: block; width: 100%; text-align: left; padding: 0; color: inherit; border-radius: 5px; }
 .community-post-open h3 { color: #21314d; font-weight: 600; line-height: 1.65; letter-spacing: -.35px; transition: color .2s; overflow-wrap: anywhere; }
 .community-post-open:hover h3 { color: #2e63d7; }
@@ -157,7 +158,7 @@
   .community-page-intro { font-size: 17px; margin-top: 12px; }
   .community-return { min-height: 44px; padding: 10px 14px; }
   .community-toolbar { flex-direction: column; align-items: stretch; gap: 10px; }
-  .community-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; }
+  .community-filters { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; }
   .community-filters button { min-width: 0; min-height: 44px; padding: 8px 4px; font-size: 11px; }
   .community-saved-filter { align-self: flex-end; min-height: 44px; padding-inline: 13px; font-size: 11px; }
   .community-result-note { margin-block: 10px 17px; font-size: 9px; }
@@ -200,3 +201,15 @@
 html[data-motion="off"] .community-art-chip { animation: none; }
 html[data-motion="off"] .community-feature:hover .community-art-mark { transform: rotate(-10deg); }
 html[data-motion="off"] .community-post-open:hover .community-read-link svg { transform: none; }
+
+.community-feature.has-cover { align-self: start; }
+.community-feature .community-photo-art,
+.community-feature:only-child>.community-photo-art { width: 100%; height: auto; min-height: 0; aspect-ratio: 2276 / 1280; align-self: start; background: #e9e6df; }
+.community-photo-art img { display: block; width: 100%; height: auto; }
+.community-detail-photo { margin: 0 0 25px; }
+.community-detail-photo img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.community-detail-photo figcaption { color: #8a99ae; font-size: 10px; line-height: 1.8; margin-top: 9px; text-align: center; }
+.community-detail-intro { font-size: 13px; line-height: 2; color: #687f9e; margin: 24px 0 28px; }
+@media (max-width: 600px) {
+  .community-detail-intro { font-size: 12px; }
+}
