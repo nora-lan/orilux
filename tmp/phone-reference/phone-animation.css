@@ -1,0 +1,42 @@
+}
+.art-plane{position:absolute;top:0;right:0;height:100%;width:auto;aspect-ratio:1672 / 941;max-width:none;overflow:visible}
+.art-underlay{filter:blur(16px)}
+.art-panel{animation:panel-drift 8s ease-in-out infinite}
+.art-phone-float{animation:phone-hover 7s ease-in-out infinite}
+.art-data-pulse{animation:data-pulse 3.4s ease-in-out infinite}
+.art-pulse-delayed{animation-delay:-1.7s}
+.art-flow-lines path,.art-phone-wave{fill:none;stroke:#78efff;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:24 65;opacity:.56;animation:data-flow 4s linear infinite}
+.art-flow-lines path:nth-child(2){animation-direction:reverse;animation-duration:5.2s;stroke:#cb88e9}
+.art-surface-lines path{stroke-width:1.2;opacity:.5;animation-duration:5s}
+.art-phone-wave{opacity:.42;stroke-dasharray:16 80;animation-duration:5s}
+.art-bar-highlights path{fill:none;stroke:#97f2ff;stroke-width:6;opacity:.22;animation:bar-pulse 2.7s ease-in-out infinite}
+.art-orbit{fill:none;stroke:#99f6ff;stroke-width:1.5;stroke-dasharray:12 24;opacity:.48;transform-box:fill-box;transform-origin:center;animation:orbit-turn 9s linear infinite}
+.art-phone-scan{animation:phone-scan 6.5s ease-in-out infinite}
+@keyframes phone-hover{0%,to{transform:translateY(3px)}
+50%{transform:translateY(-10px)}
+}
+@keyframes panel-drift{0%,to{transform:translateY(5px)}
+50%{transform:translate(4px,-8px)}
+}
+@keyframes data-pulse{0%,to{opacity:.25}
+50%{opacity:1}
+}
+@keyframes data-flow{to{stroke-dashoffset:-178}
+}
+@keyframes bar-pulse{0%,to{opacity:.08}
+50%{opacity:.6}
+}
+@keyframes orbit-turn{to{transform:rotate(360deg)}
+}
+@keyframes phone-scan{0%{transform:translateY(-75px);opacity:0}
+15%{opacity:.7}
+75%{opacity:.5}
+to{transform:translateY(405px);opacity:0}
+}
+.image-layer[data-motion-paused] *{animation-play-state:paused!important}
+@media(max-width:700px){.art-plane{left:72%;right:auto;transform:translate(-72%)}
+}
+@media(prefers-reduced-motion:reduce){.art-plane *{animation:none!important}
+.art-phone-scan,.art-flow-lines,.art-bar-highlights,.art-orbit,.art-phone-wave{opacity:0}
+}
+

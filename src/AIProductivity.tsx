@@ -44,11 +44,11 @@ function CodePreview() {
   const [appName, setAppName] = useState('')
   const selected = appScenarios[scenario]
   const code = [
-    <><b>import</b> {'{ createApp }'} <b>from</b> <em>'@yaojing/ai'</em>;</>,
+    <><b>import</b> {'{ createApp }'} <b>from</b> <em>'@orilux/ai'</em>;</>,
     <>&nbsp;</>,
     <><b>const</b> app = <span>createApp</span>({'{'}</>,
     <>  name: <em>{JSON.stringify(appName || selected.name)}</em>,</>,
-    <>  model: <em>'yaojing-studio'</em>,</>,
+    <>  model: <em>'orilux-studio'</em>,</>,
     <>  features: [<em>'协作'</em>, <em>'数据'</em>],</>,
     <>  theme: <em>'light'</em>,</>,
     <>{'}'});</>,

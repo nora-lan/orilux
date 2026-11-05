@@ -1,0 +1,46 @@
+ORILUX AI 2.0 local concept assets — 2026-11-03
+
+Layout reference: https://seed.bytedance.com/zh/?view_from=homepage_tab
+Used for visual study of wide rounded carousel panels, text overlays and topic controls. No Seed artwork is reused.
+
+ai-phone-background.png
+Source: https://phone1.ydcq3.com/images/ai-phone-background.png
+Source page supplied by the user: https://phone1.ydcq3.com/
+Copied unmodified for the same brand's AI work phone slide.
+Copy references: AI outbound calling, communication records, intelligent analysis.
+
+Work phone layered animation — updated 2026-11-04
+Reference: https://phone1.ydcq3.com/
+PhoneScene.tsx / phone-scene.css adapt the same brand's public SVG cutout coordinates
+and animation timings: a 7-second floating phone, six independently floating panels,
+6.5-second screen scan, flowing data paths, pulsing charts and a rotating data ring.
+The original local image is reused; no remote asset requests are needed at runtime.
+Sizing and edge blending are adapted to the v2 carousel and smaller screens.
+
+Current AI comic-drama media — updated 2026-11-03
+User-supplied source: 8b1d87b9e008a11fffc89f00bbbc9ff4.mp4
+Duration: 50.23 seconds. Resolution: 1280x720 (16:9), 30 fps.
+Original codecs: H.264 Main, yuv420p; AAC LC stereo, 44.1 kHz.
+
+drama-background.mp4
+Complete original video stream, remuxed losslessly with FFmpeg (stream copy), audio removed, MP4 faststart enabled. Used as the muted looping Banner background. Original burned-in subtitles and creator credits are preserved.
+
+drama-feature.mp4
+Complete original video and audio streams, remuxed losslessly with FFmpeg (stream copy), MP4 faststart enabled. Used for full video playback with audio controls.
+
+drama-poster.jpg
+Extracted from the supplied video's 1.5-second frame, at its original 1280x720 resolution. No generated imagery or additional content was added.
+
+The media above replaces the previous still-image camera-move demonstration in the v2 AI comic-drama slide. The original input remains unchanged.
+
+Archived prototype assets (retained, no longer used by the v2 comic-drama slide)
+
+drama-scene.png
+Created with the built-in image_gen tool, not a video-generation model.
+Original: C:/Users/MY/.codex/generated_images/01a18b32-3a0d-7cd3-ba5a-6be59b36f59e/exec-2b2fafde-ba7d-4215-8a70-364cb1614188.png
+Prompt:
+Use case: historical-scene. Asset: ultra-wide 16:9 cinematic background for a Chinese AI comic-drama website hero, 1536x864 or wider. Create an original visually stunning dramatic still: an ancient Chinese fortified city gate at sunrise, pale gold mist rolling through mountains, dark slate tiled roofs and grand stone walls. A small lone traveler in flowing dark hanfu seen from behind in the RIGHT third walks toward an illuminated gateway; no weapons. Rich atmospheric perspective, wet stone pathway, photoreal cinematic environment with subtle illustrated fantasy aesthetic, teal-blue shadows and warm amber sunlight, premium epic Chinese animated drama look. Composition must leave LEFT 45 percent as moody dark bluish mist and shadowed landscape with low detail, suitable for large white website typography to be added in code. Architecture and traveler primarily in right half. Image only, no text, no logos, no captions, no border, no UI. User screenshot is inspiration for genre only; create a clean original scene.
+
+drama-loop.mp4 / drama-loop.webm
+12-second looping camera-move visual demo made from the generated still with FFmpeg zoompan, 1600x900 at 30 fps, no audio. This is a motion prototype, not a finished comic-drama film.
+The actual logo and agent visuals are rendered live using existing logo paths, Canvas and CSS.

@@ -1,86 +1,116 @@
-# AI 生产力板块 · Design QA
+# Homepage modules — design QA
 
-日期：2026-11-02
+Date: 2026-11-04
+
+Final result: passed
+
+## Scope and references
+
+- AI colleague showcase: user-provided screenshot of https://www.coze.cn/overview. Recreated the task list, selected state, conversation, execution steps and nested deliverable preview. The live page was attempted, but its dynamic content was unavailable to inspection; the supplied screenshot was the visual source.
+- Personal / team / enterprise module: user-provided three-column reference. Added directly above “前沿视野，与实践同行。”
+- Product showcase: large product preview with three supporting AI tool cards, followed by the six-tool directory.
+
+The reference and implementation images for each module were reviewed together. No outstanding P1/P2 visual issues were found.
+
+## Intentional differences
+
+- ORILUX blue/white palette, existing website container width and typography replace the reference's cream palette and branding.
+- Seven original task scenarios relate to research, AI drama, knowledge assistants, industry observations, brand visuals, business data and project reporting.
+- Task execution and deliverables are explicitly labelled as preset local examples; no live AI integration, fabricated usage statistics or external submission was added.
+- Personal/team/enterprise content describes supported exploration paths without inventing prices or service guarantees.
+
+## Verification
+
+- Production build (`npm run build`) passed, including TypeScript and worker build.
+- Desktop viewport: 1600 × 900. Mobile viewport: 390 × 844.
+- No horizontal page overflow at mobile width. Task navigation becomes horizontally scrollable and three-column cards stack vertically.
+- Task selection changes prompt, response, steps, file title and result table. Replay restarts the staged animation.
+- Arrow keys, Home and End navigate task tabs. Each tab references the existing result panel.
+- Timer cleanup and reduced-motion behavior are implemented.
+- Product category switching displays all six tool cards; all six tool logos loaded successfully.
+- External experience/tool links use a new tab with noopener/noreferrer. Enterprise consultation opens the existing local-only dialog and Escape closes it.
+- Browser console check returned no errors.
+- Section order: home → products → AI productivity → solutions → AI colleagues → personal/team/enterprise → insights → about.
+
+## Screenshot evidence
+
+- `C:/Users/MY/Desktop/曜境官网/ai-colleagues-desktop.jpg`
+- `C:/Users/MY/Desktop/曜境官网/ai-colleagues-mobile.jpg`
+- `C:/Users/MY/Desktop/曜境官网/ways-to-create-desktop.jpg`
+- `C:/Users/MY/Desktop/曜境官网/ways-to-create-mobile.jpg`
+- `C:/Users/MY/Desktop/曜境官网/products-reference-feature.jpg`
+- `C:/Users/MY/Desktop/曜境官网/ai-tool-cards-desktop.jpg`
+
+Local preview: http://127.0.0.1:5173/#ai-colleagues
+
+Changes remain local; no deployment was performed.
+
+
+## Theme consistency update — 2026-11-05
+
+Final result: passed.
+
+- Classic blue/white now uses brand blue #2f66ea consistently for actions and emphasis. The agent workspace uses pale blue #edf4ff, with white content surfaces and navy text. Creator-card visuals use coordinated pale blues instead of the warm palette.
+- Warm white/ink keeps the approved warm gray workspace, white selected cards, ink text and quiet pastel details. Both themes now include the same toolbar, card hierarchy and responsive layout.
+- The style selector describes each palette accurately, shows coordinated blue swatches, and preserves the selected theme after reload.
+- Production build passed, including TypeScript and worker build.
+- Browser checks passed at desktop 1440 × 1000 and mobile 390 × 844. At mobile width, document, workspace and creator section widths were all 375 px, with no horizontal page overflow. Task navigation scrolls within its own row; creator cards form one column.
+- Selecting the knowledge-assistant task updated the prompt, response, steps and deliverable. The result reached aria-busy=false. Browser error log was empty.
+- Final screenshots were compared with the supplied warm and pale-blue references. No P1/P2 color-consistency, clipping or readability issue was found. Temporary viewport override was reset.
+
+Screenshot evidence:
+
+- C:/Users/MY/Desktop/曜境官网/theme-blue-workspace.jpg
+- C:/Users/MY/Desktop/曜境官网/theme-blue-create-paths.jpg
+- C:/Users/MY/Desktop/曜境官网/theme-warm-workspace.jpg
+- C:/Users/MY/Desktop/曜境官网/theme-blue-mobile.jpg
+
+Local preview: http://127.0.0.1:5173/#ai-colleagues
+
+
+## AI workspace style refinement — 2026-11-05
+
+Final result: passed.
+
+- Compact task labels make all seven desktop rows easier to scan. Full task names remain available through tooltips and accessible names.
+- The selected task uses a blue icon, a slim accent marker, a stronger border and a pale-blue surface. Hover and press feedback remain subtle.
+- Reduced the outer heading space and simplified the nested result card. Clearer request identity, execution status, a connected step strip and a single deliverable frame establish the visual order.
+- Blue and warm modes now share the workspace layout through one stylesheet and separate semantic color tokens. Creator-card styles were retained when removing the former duplicated warm workspace rules.
+- Production build passed, including TypeScript and worker build. The local preview was rebuilt and restarted.
+- Browser task switching showed “演示进行中” with aria-busy=true, then the expected storyboard file with “演示完成” and aria-busy=false. Replay restarted the animation; End selected the weekly task and Home returned to the first task.
+- Desktop screenshot review against the supplied reference found no P1/P2 layout or clipping issues. Mobile 390 × 844 uses horizontal task navigation and a single content column; document and workspace widths were both 375 px, with no horizontal page overflow.
+- Warm-mode color tokens resolved correctly after switching. Blue was restored and temporary viewport overrides were reset. Browser error log was empty.
+
+Screenshot evidence:
+
+- C:/Users/MY/Desktop/曜境官网/agent-workspace-refined.jpg
+- C:/Users/MY/Desktop/曜境官网/agent-workspace-refined-mobile.jpg
+
+Local preview: http://127.0.0.1:5173/#ai-colleagues
+
+## Coze-inspired interactive workspace release — 2026-11-05
 
 final result: passed
 
-## 比较目标与范围
+- Source visual truth: C:/Users/MY/Desktop/曜境官网/coze-ai-colleagues-full.png (1265 × 973 pixels).
+- Implementation: C:/Users/MY/Desktop/曜境官网/agent-workspace-coze-desktop.png (1265 × 975 pixels), browser viewport 1280 × 720. Mobile evidence: C:/Users/MY/Desktop/曜境官网/agent-workspace-coze-mobile.png, viewport 390 × 844.
+- Source and implementation were opened together in one comparison input. Both show completed task states; the reference is a coding task and the implementation a research task. This is a layout-inspired ORILUX adaptation, not a content-identical clone. The implementation capture is scrolled with its sticky site navigation visible; comparison focused on the complete workspace region beneath it.
+- Full-view and readable workspace details show a compact task sidebar, a quiet outer stage and a white conversation surface. Blue/white tokens, sans-serif typography, ORILUX copy, search/category controls and the persistent composer are intentional changes requested for the existing site. Source provider logos and live agent counts are not copied. Existing local assets are retained.
+- No actionable P0/P1/P2 visual issue was found in this comparison. The fixed-height conversation scrolls internally, while the input stays accessible. At 390px, document width was 375px, workspace approximately 345px, with no page horizontal overflow. Input focus was visually checked.
+- Browser smoke checks: task selection, search for 周报, manual weekly-report prompt routing, completion, research and weekly artifact preview, return to conversation, theme selection and restoration. No console errors recorded. Temporary viewport reset.
+- Production build passed. Existing local comments API suite passed page routes, validation, origin enforcement, persistence, idempotency, article isolation, cooldown, personal pagination and owner-only deletion.
+- Scope: preset local demonstrations, not live model calls. Remaining untested paths in this release smoke pass: every artifact export variant and every warm-theme artifact state. Earlier static review fixes are included; no claims of exhaustive regression testing.
+- Packaging is a local export only; no remote publication performed.
 
-在现有曜境官网中新增参考图所示的 AI 生产力板块。核对居中标题、三列浅灰卡片、产品标签/标题/介绍的层级、底部场景预览，以及移动端的纵向阅读与交互。
-
-- Source visual truth：`C:/Users/MY/AppData/Local/Temp/codex-clipboard-f34387d5-29b8-4c5c-aac4-ed84b61ddb99.png`
-- Desktop implementation：`C:/Users/MY/Desktop/曜境官网/ai-productivity-preview.png`
-- Mobile implementation：`C:/Users/MY/Desktop/曜境官网/ai-productivity-mobile.png`
-- 实现：`src/AIProductivity.tsx`、`src/ai-productivity.css`，接入既有 `src/App.tsx`。
-
-源图和桌面实现图在同一个工具调用中共同打开作为比较输入；同次调用还打开了移动端图。审查基于实际图像，未仅凭代码或文件名推断视觉结果。
-
-这是既有官网中的品牌适配，不是独立站点的像素复刻。接受主代理已向用户说明的差异：1320px 内容宽度与既有站点协调；沿用 Noto Sans SC/系统中文字体和曜境蓝色；产品更名为曜境 AI、Code、Mate；使用原创生成的星际创作素材和冰蓝机器人，替代源图素材与龙虾；文案改为曜境叙述；增加真实可操作的演示模式和咨询入口。
-
-## 尺寸、状态与归一化
-
-| 图像 | 像素尺寸 | CSS/捕获说明 | 状态 |
-| --- | --- | --- | --- |
-| 参考图 | 1847 × 826 | 用户提供的板块截图，未包含完整浏览器视口信息 | 三卡默认展示 |
-| 桌面实现 | 1848 × 826 | 主代理报告浏览器 CSS 视口 1848 × 1000，截取新增板块 | 视频分镜、代码视图、助手首页 |
-| 移动实现 | 390 × 988 | 主代理报告约 390 × 844 的移动 CSS 视口，纵向截取板块 | 图文创作已选、已输入“曜境新品发布” |
-
-桌面截图与参考图同高且仅相差 1px 宽，按原生像素尺寸比较，没有拉伸图像。内容列宽差异为上述既有站点适配，不能误判为 DPR 或页面缩放误差。移动图没有对应源图移动状态，因此仅检查响应式布局、内容可读性与边界，不声称移动端像素复刻。截图文件的扩展名为 `.png`；尺寸通过图像解码读取核实。
-
-## Findings
-
-没有遗留的 P0/P1/P2 视觉问题。
-
-- 三张卡片顶边、标签、标题和场景预览起点对齐。卡片底部与三个输入区域有一致的收尾节奏，未见预览错位或卡片内容被切掉。
-- 桌面标题完整居中，三张主标题保持清晰层级。移动标题自然分为两行，`AI 生产力` 独立成行；没有单字孤行或水平溢出。
-- 两张生成图片均已加载；星际素材清晰，机器人的头部、躯干与手势完整，没有可见拉伸、缺图、透明边缘杂色或水印。助手功能按钮与输入框避开面部，保留主要角色识别。
-- 原型预览中的细小辅助文字属于卡片内部的缩略界面，不承担主营销信息；卡片标签、标题、介绍与咨询入口的阅读层级保持独立。移动端输入框和主要控件更大，已输入文本没有越出容器。
-
-## 五项 Fidelity Surfaces
-
-1. **字体与排版**：沿用既有中文字体体系。实现标题比源图更紧凑、略重，符合既有官网。三个产品标题的字号与字重一致；正文行距均匀，中文、英文及数字没有异常字间距。移动端标题、正文和输入内容的换行合理。
-2. **间距与布局**：保留“居中标题 → 三列卡片 → 场景预览”的结构，采用既有站点内容宽度。卡片内边距、列间距、预览高度与边框半径协调；手机为单列，卡片之间有明确分隔。桌面三张预览顶边和底边齐平。
-3. **颜色与视觉标记**：白色版块、浅灰卡片、淡蓝/浅紫预览与蓝色操作按钮承接源图层级，同时使用曜境蓝色强调标题末尾。选中状态具有背景或边界变化，不仅依赖文字颜色。未发现新增突兀色块或非预期主题漂移。
-4. **图像质量与资产**：插画使用真实生成位图，非用 CSS/SVG 代替人物与场景。创作预览和助手预览均具备足够清晰度与正确裁切；截图中的内部窗口、表单与代码是实际 UI。机器人代替龙虾、单幅创作场景代替多素材拼贴为已明确的品牌适配。
-5. **文案与内容**：三类产品明确对应创作、开发、助手。文案与曜境命名一致，咨询 CTA 完整；底部“交互演示”说明以及应用示例标记避免将预设内容描述为已接入的生产 AI 服务。没有把用户需求、实现备注或占位文字留在主营销文案中。
-
-## 比较历史与修复证据
-
-### 初次只读审查
-
-- **[P2] 平板仍为三列**：原 701–960px 布局使创作画布在侧栏之后过窄，并压缩真实可操作控件。修复为 1000px 以下单列、卡片最大宽度 600px。主代理随后在 768px 验证单列；本次 390px 实现图也清楚显示单列卡片和完整输入区。
-- **[P2] 新导航项引入窄屏宽度风险**：增加“AI 生产力”后，原 700px 的菜单断点不足。修复为 960px 以下使用折叠菜单。主代理报告 768px 菜单正确，390px 无横向溢出；该验证属于交互记录，当前板块截图不包含头部，未将截图当作头部证据。
-- **[P2] 助手状态切换丢失键盘焦点**：原任务按钮卸载后焦点没有明确去向。修复为答案区域获得焦点，返回时恢复任务按钮或输入框。当前源码包含答案 region、`tabIndex=-1`、焦点样式和恢复逻辑；主代理已通过浏览器验证正向与返回焦点。
-
-### 修复后最终比较
-
-已共同查看上述参考图、最终桌面截图和最终移动截图。桌面三卡结构与预览对齐，移动创作状态完整可读，没有新增 P0/P1/P2 差异。无需另存聚焦裁片：本次原生尺寸的完整板块图可以检查卡片边界、标题/正文、三个预览与输入框；390px 移动图另提供创作卡的近距离内容与选中状态。没有将不同交互状态的文字变化算作设计漂移。
-
-## 功能与浏览器验证记录
-
-以下为主代理在本轮实际浏览器操作后提供的通过记录；本 QA 代理未重复启动浏览器：
-
-- 创作类型切换、输入灵感反映到预览。
-- 开发卡的项目管理切换、代码/原型预览、自定义应用名称。
-- 助手任务按钮、输入任务分类、答案焦点及返回焦点恢复。
-- 三张卡片的咨询 CTA 打开业务咨询。
-- 768px 单列布局和折叠菜单；390px 无水平溢出。
-- 浏览器控制台 error 记录为空：`[]`。
-
-## Open Questions
-
-无阻断问题。手机截图包含创作卡及开发卡上部，没有将其视为三张手机卡片的完整截图；助手与开发的操作可用性依据主代理的浏览器验证记录。
-
-## Implementation Checklist
-
-- [x] 接入既有品牌、导航与页面滚动状态。
-- [x] 三卡内容、图片与实际演示控件就位。
-- [x] 修复平板卡片密度、导航断点和助手焦点。
-- [x] 比较最终桌面和移动截图，核对五项 fidelity surfaces。
-- [x] 核对主要交互和浏览器错误记录。
-
-## Follow-up Polish
-
-无必须追踪的 P3 项。本轮未扩展为真实模型调用或应用部署功能；预设示例范围已在页面注明。
+## Compact OPC agent studio — 2026-11-05
 
 final result: passed
+
+- References: C:/Users/MY/AppData/Local/Temp/codex-clipboard-af02ace5-5262-44f4-be7e-e3acdfa49a3b.png (1743 × 813, requested size) and C:/Users/MY/AppData/Local/Temp/codex-clipboard-7a4c3cdf-65f6-474a-8dca-f07177463451.png (1829 × 740, Loomy layout). Reference browser pixel density is not supplied. The comparison uses the visible workbench region, not the unrelated background or surrounding cards.
+- Final implementation evidence: C:/Users/MY/Desktop/曜境官网/opc-studio-desktop.png. Browser viewport 1743 × 1000 CSS px, reported DPR approximately 1.13. The frame is approximately 960 × 600 CSS px and the right tool column is also 600px high. Reference and final implementation were opened together in one comparison input, in the idle composer state.
+- Layout: adopted the compact app sidebar, quiet top bar, centered greeting, capability pills and composer. Replaced the old vertically expanding form with a bounded workbench and internal result scrolling. The original three tool links remain in an aligned, compact right column.
+- Typography: retained the site's sans-serif family, with a 24–28px greeting and smaller navigation/caption hierarchy. Color: retained the approved pale blue/white palette and navy text; the reference's yellow/green backdrop is intentionally not copied. Imagery: reused the existing ORILUX mark, blue robot and provider icons. Copy: ORILUX scenarios and the local demonstration labels replace Loomy-specific text.
+- Visual review found no remaining actionable P0/P1/P2 issue within the changed module. The result state and composer remain within the same frame height. Mobile evidence: C:/Users/MY/Desktop/曜境官网/opc-studio-mobile.png at 390 × 844; body content fits the idle stage, sidebar hides, and result content scrolls internally. At 660 × 900 the greeting remains reachable with no horizontal page overflow. Temporary viewport overrides were reset.
+- Interaction checks: brand-film shortcut, staged completion, copy success feedback, knowledge prompt submitted with Enter, focus retained on the remounted textarea, learning shortcut on mobile, completion and new-task reset. Fixed reduced-motion result scroll reset and safe flex centering at narrow widths during review. Reduced-motion browser preference was not separately emulated.
+- Warm theme tokens were checked and blue/white restored. Browser error log was empty. TypeScript/production build, targeted component ESLint and git diff whitespace validation passed.
+- Scope remains a preset local demo with no live model connection. Preview: http://127.0.0.1:5173/#products . No deployment or new release package was produced.

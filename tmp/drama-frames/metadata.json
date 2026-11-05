@@ -1,0 +1,162 @@
+[
+  {
+    "id": "film-01",
+    "original": "fc44db31eef30fef09d97b47141eac93.mp4",
+    "width": 1280,
+    "height": 720,
+    "duration": 13.305011,
+    "frames": [
+      {
+        "index": 1,
+        "time": 0.6652505500000001,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-01-frame-1.jpg"
+      },
+      {
+        "index": 2,
+        "time": 2.6610022000000004,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-01-frame-2.jpg"
+      },
+      {
+        "index": 3,
+        "time": 4.656753849999999,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-01-frame-3.jpg"
+      },
+      {
+        "index": 4,
+        "time": 6.6525055,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-01-frame-4.jpg"
+      },
+      {
+        "index": 5,
+        "time": 8.648257150000001,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-01-frame-5.jpg"
+      },
+      {
+        "index": 6,
+        "time": 10.91010902,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-01-frame-6.jpg"
+      }
+    ],
+    "contactSheet": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-01-contact.jpg"
+  },
+  {
+    "id": "film-02",
+    "original": "fd28a775b1082626e089148b7a6bf133.mp4",
+    "width": 1280,
+    "height": 720,
+    "duration": 55.217007,
+    "frames": [
+      {
+        "index": 1,
+        "time": 2.76085035,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-02-frame-1.jpg"
+      },
+      {
+        "index": 2,
+        "time": 11.0434014,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-02-frame-2.jpg"
+      },
+      {
+        "index": 3,
+        "time": 19.32595245,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-02-frame-3.jpg"
+      },
+      {
+        "index": 4,
+        "time": 27.6085035,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-02-frame-4.jpg"
+      },
+      {
+        "index": 5,
+        "time": 35.89105455,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-02-frame-5.jpg"
+      },
+      {
+        "index": 6,
+        "time": 45.27794574,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-02-frame-6.jpg"
+      }
+    ],
+    "contactSheet": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-02-contact.jpg"
+  },
+  {
+    "id": "film-03",
+    "original": "8b1d87b9e008a11fffc89f00bbbc9ff4.mp4",
+    "width": 1280,
+    "height": 720,
+    "duration": 50.233333,
+    "frames": [
+      {
+        "index": 1,
+        "time": 2.5116666500000004,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-03-frame-1.jpg"
+      },
+      {
+        "index": 2,
+        "time": 10.046666600000002,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-03-frame-2.jpg"
+      },
+      {
+        "index": 3,
+        "time": 17.581666549999998,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-03-frame-3.jpg"
+      },
+      {
+        "index": 4,
+        "time": 25.1166665,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-03-frame-4.jpg"
+      },
+      {
+        "index": 5,
+        "time": 32.65166645,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-03-frame-5.jpg"
+      },
+      {
+        "index": 6,
+        "time": 41.19133306,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-03-frame-6.jpg"
+      }
+    ],
+    "contactSheet": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-03-contact.jpg"
+  },
+  {
+    "id": "film-04",
+    "original": "9fec4829cd6e7e9cc29b04627640680c.mp4",
+    "width": 1280,
+    "height": 720,
+    "duration": 82.245011,
+    "frames": [
+      {
+        "index": 1,
+        "time": 4.112250550000001,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-04-frame-1.jpg"
+      },
+      {
+        "index": 2,
+        "time": 16.449002200000002,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-04-frame-2.jpg"
+      },
+      {
+        "index": 3,
+        "time": 28.78575385,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-04-frame-3.jpg"
+      },
+      {
+        "index": 4,
+        "time": 41.1225055,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-04-frame-4.jpg"
+      },
+      {
+        "index": 5,
+        "time": 53.459257150000006,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-04-frame-5.jpg"
+      },
+      {
+        "index": 6,
+        "time": 67.44090902,
+        "path": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-04-frame-6.jpg"
+      }
+    ],
+    "contactSheet": "C:\\Users\\MY\\Desktop\\曜境官网\\vite-project\\tmp\\drama-frames\\film-04-contact.jpg"
+  }
+]

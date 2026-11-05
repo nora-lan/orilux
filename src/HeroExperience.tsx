@@ -49,7 +49,7 @@ export default function HeroExperience({ motionEnabled, onContact, onExplore }: 
       <button className="glass-block block-three" aria-label="探索云基础设施产品" onClick={() => onExplore('云基础设施')} onPointerEnter={() => setHotspot('弹性云服务 · 点击探索')} onFocus={() => setHotspot('弹性云服务 · 点击探索')} onBlur={() => setHotspot(null)} onPointerLeave={() => setHotspot(null)}><Cpu size={30} /></button>
       <span className="art-point point-one" aria-hidden="true" /><span className="art-point point-two" aria-hidden="true" /><span className="art-cross cross-one" aria-hidden="true">+</span><span className="art-cross cross-two" aria-hidden="true">+</span>
     </div><div className={`art-label ${hotspot ? 'hotspot-active' : ''}`}><span />{hotspot}</div>
-      <p className="brand-caption">曜境 YAOJING · 让想法与未来相遇</p>
+      <p className="brand-caption">曜境 ORILUX AI · 让想法与未来相遇</p>
     </div></div>
     <div className="hero-pagination"><div className="hero-slide-tabs" role="group" aria-label="首屏主题">{slides.map((item, index) => <button key={item.short} className={slide === index ? 'active' : ''} aria-pressed={slide === index} aria-label={`切换到${item.short}主题`} onClick={() => selectSlide(index)}><span>0{index + 1}</span><i /><strong>{item.short}</strong></button>)}</div><div className="hero-player"><button aria-label="上一主题" onClick={() => selectSlide((slide + 2) % 3)}>←</button><button className="autoplay-toggle" aria-label={paused ? '播放首屏主题' : '暂停首屏主题'} aria-pressed={!paused && motionEnabled} disabled={!motionEnabled} onClick={() => { setPaused(!paused); if (paused) setFocused(false) }}>{paused || !motionEnabled ? '▷' : 'Ⅱ'}</button><button aria-label="下一主题" onClick={() => selectSlide((slide + 1) % 3)}>→</button></div><a href="#products" aria-label="向下浏览产品">↓</a></div>
   </section>

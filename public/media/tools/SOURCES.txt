@@ -1,0 +1,25 @@
+AI tool brand assets, retrieved 2026-11-04.
+These are the existing brand images from the user's referenced OPC catalog.
+No brand image was generated or redrawn. Marks belong to the respective brands.
+
+Source catalog: https://opc.ydcq3.com/app/
+Catalog bundle: https://opc.ydcq3.com/citizen-assets/main-BQnFFHMc.js
+
+codex.png: https://opc.ydcq3.com/assets/catalog-3964e2b24225e20abeab.png
+chatgpt.png: https://opc.ydcq3.com/assets/catalog-18c45d73e5a113d69ebb.png
+doubao.png: https://opc.ydcq3.com/assets/catalog-34ea5d184dedfd0b6e2e.png
+deepseek.webp: https://opc.ydcq3.com/assets/catalog-c138d222a8ccac997523.webp
+cursor.png: https://opc.ydcq3.com/assets/catalog-267649be4d2a26dea632.png
+claude.png: https://opc.ydcq3.com/assets/catalog-4004381309500f25e49a.png
+
+Official product/link validation:
+https://openai.com/codex/
+https://chatgpt.com/download/
+https://www.doubao.com/chat/
+https://www.doubao.com/download/
+https://www.deepseek.com/
+https://www.deepseek.com/download/
+https://cursor.com/
+https://cursor.com/download
+https://claude.ai/
+https://claude.com/download

@@ -9,7 +9,7 @@ export default defineConfig({
     minify: false,
     rollupOptions: {
       maxParallelFileOps: 2,
-      input: { home: 'index.html', community: 'community/index.html', article: 'community/article/index.html', account: 'account/index.html' },
+      input: { home: 'index.html', v2: 'v2/index.html', community: 'community/index.html', article: 'community/article/index.html', account: 'account/index.html', join: 'join/index.html' },
     },
   },
 })

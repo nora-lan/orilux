@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 
 const origin = process.env.TEST_ORIGIN || 'http://127.0.0.1:5173'
 assert.ok(/^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(origin), 'API tests must run against local preview only')
-const articleId = 'knowledge-first-document'
+const articleId = 'yaojing-ai-summit-2026'
 async function request(path, { cookie, method = 'GET', body, from = origin } = {}) {
   const response = await fetch(origin + path, {
     method,

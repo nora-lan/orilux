@@ -13,7 +13,7 @@ export default function BrandMonogram({ bannerHovered, motionEnabled, sceneActiv
     <div className="platform platform-top brand-platform" aria-hidden="true">
       <span className="monogram-halo" />
       <span className="monogram-contact-shadow" />
-      <span className="monogram-signature">YAOJING · 无限可能</span>
+      <span className="monogram-signature">ORILUX AI · 无限可能</span>
     </div>
     <button type="button" className="monogram-trigger" aria-label="标识浮动预览" aria-pressed={raised}
       onPointerDown={event => { pointerType.current = event.pointerType; if (event.pointerType === 'mouse') setActivated(false) }}

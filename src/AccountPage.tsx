@@ -70,7 +70,7 @@ export default function AccountPage() {
   const draftChanged = draft.nickname !== profile.nickname || draft.bio !== profile.bio || draft.avatar !== profile.avatar
 
   useEffect(() => {
-    document.title = '个人中心 — 曜境 YAOJING'
+    document.title = '个人中心 — 曜境 ORILUX AI'
     const syncTab = () => setTab(currentTab())
     window.addEventListener('hashchange', syncTab)
     return () => window.removeEventListener('hashchange', syncTab)
@@ -155,13 +155,13 @@ export default function AccountPage() {
   return <div className="account-page" id="account-top">
     <div className="account-heading wrap">
       <nav className="community-breadcrumb" aria-label="面包屑"><a href="/#home">首页</a><span aria-hidden="true">/</span><span aria-current="page">个人中心</span></nav>
-      <div className="account-heading-row"><div><p className="eyebrow">PERSONAL CENTER / YAOJING</p><h1>我的个人中心</h1><p className="account-heading-description">收藏灵感，留下思考，与曜境一起探索更多可能。</p></div><a className="account-community-link" href="/community/">发现社区动态 <ArrowUpRight size={17} /></a></div>
+      <div className="account-heading-row"><div><p className="eyebrow">PERSONAL CENTER / ORILUX AI</p><h1>我的个人中心</h1><p className="account-heading-description">收藏灵感，留下思考，与曜境一起探索更多可能。</p></div><a className="account-community-link" href="/community/">发现社区动态 <ArrowUpRight size={17} /></a></div>
     </div>
     <div className="account-layout wrap">
       <aside className="account-sidebar" aria-label="个人概览">
         <section className="account-profile-card">
           <div className="account-profile-banner" aria-hidden="true"><span /><span /><span /></div>
-          <div className="account-profile-summary"><UserAvatar profile={profile} size={80} className="account-profile-avatar" /><span className="account-profile-label">YAOJING COMMUNITY</span><h2>{profile.nickname}</h2><p>{profile.bio || '保持好奇，让每一个想法都有新的可能。'}</p><button className="account-edit-link" onClick={() => selectTab('profile')}>编辑个人资料 <ArrowUpRight size={14} /></button></div>
+          <div className="account-profile-summary"><UserAvatar profile={profile} size={80} className="account-profile-avatar" /><span className="account-profile-label">ORILUX AI COMMUNITY</span><h2>{profile.nickname}</h2><p>{profile.bio || '保持好奇，让每一个想法都有新的可能。'}</p><button className="account-edit-link" onClick={() => selectTab('profile')}>编辑个人资料 <ArrowUpRight size={14} /></button></div>
           <div className="account-statistics has-articles"><button onClick={() => selectTab('articles')} aria-label={`查看我的 ${myArticles.articles.length} 篇文章`}><strong>{myArticles.articles.length.toString().padStart(2, '0')}</strong><span>我的文章</span></button><button onClick={() => selectTab('saved')} aria-label={`查看我的 ${saved.length} 篇收藏`}><strong>{saved.length.toString().padStart(2, '0')}</strong><span>我的收藏</span></button><button onClick={() => selectTab('comments')} aria-label="查看我的评论"><strong>{total === null ? '—' : total.toString().padStart(2, '0')}</strong><span>我的评论</span></button></div>
         </section>
         <div className="account-sidebar-note"><span className="account-note-symbol" aria-hidden="true">✦</span><h3>每一次交流，都有价值。</h3><p>读一篇文章，记录一个想法。让灵感在分享中生长。</p><a href="/community/">去社区看看 <ArrowRight size={15} /></a></div>
@@ -173,7 +173,7 @@ export default function AccountPage() {
           <div className="account-panel-heading"><div><h2>{activeTab.title}</h2><p>{activeTab.description}</p></div>{tab === 'comments' && <button className="account-refresh" onClick={() => void loadComments(null)} disabled={loading || loadingMore || removingId !== null}>刷新</button>}{tab === 'saved' && <span className="account-panel-total">{saved.length} 篇文章</span>}</div>
           <div hidden={tab !== 'articles'}><MyArticles {...myArticles} authorName={profile.nickname} /></div>
           {tab === 'saved' && <>
-            {savedPosts.length > 0 ? <ul className="account-saved-list">{savedPosts.map(post => <li key={post.id}><a className={`account-saved-cover ${!post.cover ? 'is-placeholder' : ''}`} href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer" aria-label={`阅读：${post.title}`}>{post.cover ? <img src={post.cover.src} alt="" loading="lazy" /> : <><AccountIcon name="saved" size={31} /><span>YAOJING INSIGHTS</span></>}</a><div className="account-saved-copy"><span className="account-category">{post.category}<i />{post.readTime}</span><a href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer"><h3>{post.title}</h3></a><p>{post.summary}</p><div className="account-saved-actions"><a href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer">继续阅读 <ArrowUpRight size={14} /></a><button onClick={() => toggleSaved(post.id)} aria-label={`取消收藏：${post.title}`}>取消收藏</button></div></div></li>)}</ul> : <div className="account-empty"><div className="account-empty-art"><AccountIcon name="saved" size={36} /><span aria-hidden="true">+</span></div><h3>你的灵感书架，等你开启</h3><p>遇见喜欢的文章，点击「收藏文章」，<br />下次就能在这里轻松找到。</p><a className="button" href="/community/">发现值得收藏的内容 <ArrowRight size={16} /></a></div>}
+            {savedPosts.length > 0 ? <ul className="account-saved-list">{savedPosts.map(post => <li key={post.id}><a className={`account-saved-cover ${!post.cover ? 'is-placeholder' : ''}`} href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer" aria-label={`阅读：${post.title}`}>{post.cover ? <img src={post.cover.src} alt="" loading="lazy" /> : <><AccountIcon name="saved" size={31} /><span>ORILUX AI INSIGHTS</span></>}</a><div className="account-saved-copy"><span className="account-category">{post.category}<i />{post.readTime}</span><a href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer"><h3>{post.title}</h3></a><p>{post.summary}</p><div className="account-saved-actions"><a href={communityArticleUrl(post.id)} target="_blank" rel="noopener noreferrer">继续阅读 <ArrowUpRight size={14} /></a><button onClick={() => toggleSaved(post.id)} aria-label={`取消收藏：${post.title}`}>取消收藏</button></div></div></li>)}</ul> : <div className="account-empty"><div className="account-empty-art"><AccountIcon name="saved" size={36} /><span aria-hidden="true">+</span></div><h3>你的灵感书架，等你开启</h3><p>遇见喜欢的文章，点击「收藏文章」，<br />下次就能在这里轻松找到。</p><a className="button" href="/community/">发现值得收藏的内容 <ArrowRight size={16} /></a></div>}
             <p className="account-storage-note">{storageNotice}</p>
           </>}
           {tab === 'comments' && <>
